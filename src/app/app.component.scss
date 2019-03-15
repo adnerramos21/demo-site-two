@@ -1,0 +1,72 @@
+.wrapper {
+  height: 100%;
+  position: relative;
+  color: #fff;
+  overflow-x: hidden; 
+
+  .bg-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    .top {
+      margin: 3% 4%;
+
+      .left-side {
+      }
+
+      .right-side {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        span {
+          display: inline-block;
+        }
+
+        .discover-text {
+          margin-right: 10px;
+        }
+
+        .menu-icon-container {
+          div {
+            width: 30px;
+            height: 1.5px;
+            background-color: #fff;
+            margin: 6px 0;
+          }
+
+          .bar2 {
+            width: 15px;
+            transform: translateX(15px);
+          }
+        }
+      }
+    }
+
+    .social {
+        position: absolute;
+        display: inline-block;
+        transform: rotate(-90deg);
+        left: -5%;
+        top: 45%;
+
+        span {
+            margin-right: 28%;
+        }
+
+        span:last-child {
+            margin-right: 0;
+        }
+    }
+
+  }
+
+}
