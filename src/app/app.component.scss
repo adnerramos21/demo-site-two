@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,800");
+
 .wrapper {
+  font-family: "Open Sans", Helvetica, sans-serif;
   height: 100%;
   position: relative;
   color: #fff;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 
   .bg-image {
     width: 100%;
@@ -20,12 +23,14 @@
       margin: 3% 4%;
 
       .left-side {
+        text-transform: uppercase;
       }
 
       .right-side {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        text-transform: uppercase;
 
         span {
           display: inline-block;
@@ -52,21 +57,44 @@
     }
 
     .social {
-        position: absolute;
-        display: inline-block;
-        transform: rotate(-90deg);
-        left: -5%;
-        top: 45%;
+      position: absolute;
+      display: inline-block;
+      transform: rotate(-90deg);
+      left: -9%;
+      top: 57%;
+      text-transform: uppercase;
+      font-size: 1rem;
 
-        span {
-            margin-right: 28%;
-        }
+      span {
+        margin-right: 21%;
+      }
 
-        span:last-child {
-            margin-right: 0;
-        }
+      span:last-child {
+        margin-right: 0;
+      }
     }
 
-  }
+    .title-wrapper {
+      position: relative;
+      height: 550px;
 
+      .title {
+        font-weight: 800;
+        text-align: right;
+        position: absolute;
+        right: 4%;
+        top: 0%;
+
+        & :first-child {
+          font-size: 10rem;
+          height: 12rem;
+        }
+
+        & :last-child {
+          font-size: 5rem;
+          color: #000;
+        }
+      }
+    }
+  }
 }
