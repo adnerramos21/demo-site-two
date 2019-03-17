@@ -4,10 +4,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppDirective } from './app.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AppDirective
   ],
   imports: [
     BrowserModule,

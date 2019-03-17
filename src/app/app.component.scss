@@ -97,21 +97,34 @@
 
         .scroll-indicator {
           text-align: center;
+          position: relative;
 
-          & > span {
-            display: inline-block;
-            border: 1px solid #fff;
-            padding: 15px;
-            font-size: 0.8rem;
-            font-weight: 400;
-            border-radius: 50%;
-            height: 50px;
-            width: 50px;
-            line-height: 3.7;
+          svg {
+            width: 100px;
+            height: 100px;
+            transform: rotate(90deg);
+
+            #circle-text {
+              font-size: 0.8rem;
+              font-weight: 400;
+            }
+
+            #indicator {
+              stroke-dasharray: 252.327px, 262.327px;
+            }
+          }
+
+          .vertical-line {
+            content: "";
+            position: absolute;
+            top: 91px;
+            right: 49.5%;
+            width: 1px;
+            height: 0;
+            background-color: #fff;
           }
         }
       }
-
     }
   }
 }

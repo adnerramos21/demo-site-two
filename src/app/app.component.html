@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" (scroll)="scrollHandler($event)">
   <img class="bg-image" src="../assets/image/landing-background.jpg" alt="landing-background">
 
   <div class="content">
@@ -28,10 +28,16 @@
       <div class="title">
         <div>LOLA</div>
         <div>PRODUCTIONS</div>
+
         <div class="scroll-indicator">
-          <span>
-            SCROLL
-          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 100 100">
+            <circle id="indicator" stroke="#fff" stroke-width=".7" stroke-dashoffset="0" fill="none" cx="50" cy="50" r="40" />
+
+            <!-- <g fill="#fff" text-anchor="middle"> -->
+            <!-- <text id="circle-text" x="51" y="55">SCROLL</text> -->
+            <!-- </g> -->
+          </svg>
+          <div class="vertical-line"> </div>
         </div>
 
       </div>
