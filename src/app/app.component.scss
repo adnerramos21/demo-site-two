@@ -99,6 +99,14 @@
           text-align: center;
           position: relative;
 
+          .inner-text {
+            position: relative;
+            font-weight: 400;
+            left: 13%;
+            bottom: 45px;
+            font-size: 0.85rem;
+          }
+
           svg {
             width: 100px;
             height: 100px;
@@ -116,9 +124,9 @@
 
           .vertical-line {
             content: "";
-            position: absolute;
-            top: 91px;
-            right: 49.5%;
+            position: relative;
+            top: -14px;
+            right: -54%;
             width: 1px;
             height: 0;
             background-color: #fff;
