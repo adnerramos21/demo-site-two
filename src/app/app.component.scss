@@ -179,17 +179,14 @@
           outline: none;
         }
 
-        button:hover {
-          background-color: whitesmoke;
-          color: black;
-          transition: background-color 0.5s ease-out;
-        }
-
-        span {
-          display: block;
+        div {
           height: 100%;
           line-height: 2.5;
           position: relative;
+        }
+
+        span {
+          opacity: 0;
         }
 
         .top-side-line::before {
@@ -248,6 +245,18 @@
 
       
       .animate-lines {
+
+        button:hover {
+          background-color: whitesmoke;
+          color: black;
+          transition: background-color 0.5s ease-out;
+        }
+
+        span {
+          opacity: 1;
+          transition: opacity 0.5s ease-out .2s;
+        }
+
         .top-side-line::before {
           // border: 1px solid white;
           width: calc(50% - 1px);
