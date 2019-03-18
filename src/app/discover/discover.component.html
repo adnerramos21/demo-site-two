@@ -1,3 +1,62 @@
-<p>
-  discover works!
-</p>
+<div class="discover-wrapper" (scroll)="scrollHandler($event)">
+
+  <div class="discover-content">
+
+    <div fxLayout="row" class="top">
+      <div fxFlex="50%" class="left-side">Lola</div>
+
+      <div fxFlex="50%" class="right-side">
+        <span class="discover-text">
+          Discover
+        </span>
+        <span class="menu-icon-container">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </span>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="title">
+      <div fxFlex="100%">
+        Projects
+      </div>
+    </div>
+
+    <div fxLayout="row" class="photo-slide" fxLayoutGap="20px">
+      <div>
+        <img src="../../assets/image/picture1.jpg" alt="picture1">
+        <div class="label">
+          <span>
+            TAKAI - SILVER
+          </span>
+        </div>
+      </div>
+      <div id="test">
+        <!-- <img src="../../assets/image/picture2.jpg" alt="picture2"> -->
+        <!-- <div class="label">
+          <span> -->
+            TAKAI - SILVER
+          <!-- </span>
+        </div> -->
+      </div>
+      <div>
+        <img src="../../assets/image/picture3.jpg" alt="picture3">
+        <div class="label">
+          <span>
+            TAKAI - SILVER
+          </span>
+        </div>
+      </div>
+      <div>
+        <img src="../../assets/image/picture4.jpg" alt="picture4">
+        <div class="label">
+          <span>
+            TAKAI - SILVER
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

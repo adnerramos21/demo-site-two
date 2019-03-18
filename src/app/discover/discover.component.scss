@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,800");
+
+.discover-wrapper {
+  font-family: "Open Sans", Helvetica, sans-serif;
+  height: 100%;
+  position: relative;
+  color: #fff;
+  overflow-x: hidden;
+  background: #000;
+
+  .discover-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    .top {
+      margin: 3% 4%;
+
+      .left-side {
+        text-transform: uppercase;
+      }
+
+      .right-side {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        text-transform: uppercase;
+
+        span {
+          display: inline-block;
+        }
+
+        .discover-text {
+          margin-right: 20px;
+          cursor: pointer;
+        }
+
+        .menu-icon-container {
+          div {
+            width: 25px;
+            height: 1.5px;
+            background-color: #fff;
+            margin: 6px 0;
+          }
+
+          .bar2 {
+            width: 12.5px;
+            transform: translateX(12.5px);
+          }
+        }
+      }
+    }
+
+    .title {
+      margin-bottom: 5%;
+
+      div {
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 2.5rem;
+      }
+    }
+
+    .photo-slide {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+
+      #test {
+        content: url("./../../assets/image/picture2.jpg");
+        height: 343px;
+				width: 504px;
+				position: relative;
+
+				.label {
+          // position: absolute;
+          // bottom: 9%;
+          // left: 0;
+          height: 15%;
+          width: 60%;
+          background-color: azure;
+          display: flex;
+          align-items: center;
+
+          // span {
+          //   color: #000000;
+          //   padding-left: 5%;
+          //   font-size: 1.3rem;
+          // }
+        }
+      }
+
+      div {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        img {
+          height: 343px;
+          width: 504px;
+        }
+
+        .label {
+          position: absolute;
+          bottom: 9%;
+          left: 0;
+          height: 15%;
+          width: 60%;
+          background-color: azure;
+          display: flex;
+          align-items: center;
+
+          span {
+            color: #000000;
+            padding-left: 5%;
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+  }
+}
