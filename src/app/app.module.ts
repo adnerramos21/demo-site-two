@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { AppDirective } from './app.directive';
 import { PresentationComponent } from './presentation/presentation.component';
 import { MainComponent } from './main/main.component';
+import { DiscoverComponent } from './discover/discover.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppDirective,
     PresentationComponent,
-    MainComponent
+    MainComponent,
+    DiscoverComponent
   ],
   imports: [
     BrowserModule,
