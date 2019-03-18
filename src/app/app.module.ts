@@ -5,11 +5,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppDirective } from './app.directive';
+import { PresentationComponent } from './presentation/presentation.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppDirective
+    AppDirective,
+    PresentationComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
