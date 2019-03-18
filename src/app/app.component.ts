@@ -19,7 +19,8 @@ export class AppComponent implements AfterViewInit {
       indicator = document.getElementById('indicator'),
       verticalLine = document.getElementsByClassName('vertical-line'),
       first = document.getElementsByClassName('first'),
-      last = document.getElementsByClassName('last');
+      last = document.getElementsByClassName('last'),
+      actionButton = document.getElementsByClassName('action-button');
 
     let currentPositionFirstElem = 0,
       currentPositionLastElem = 0;
@@ -41,7 +42,6 @@ export class AppComponent implements AfterViewInit {
       last[0].setAttribute('style', 'transform: matrix(1, 0, 0, 1, 670, 0)');
 
     } else if (scrollPosition > positionLimitForVerticalLine && scrollPosition <= 1000) {
-      console.log(scrollPosition);
       currentPositionFirstElem = (scrollPosition - positionLimitForVerticalLine) - 192;
       currentPositionLastElem = 670 - (scrollPosition - positionLimitForVerticalLine);
 
@@ -53,6 +53,10 @@ export class AppComponent implements AfterViewInit {
         transform: `matrix(1, 0, 0, 1, ${currentPositionLastElem}, 0)`
       });
 
+      actionButton[0].classList.remove('animate-lines');
+
+    } else if (scrollPosition > 1000) {
+      actionButton[0].classList.add('animate-lines');
     }
 
   }
