@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,800");
+$asset-image-path: "assets/image";
 
 .discover-wrapper {
   font-family: "Open Sans", Helvetica, sans-serif;
@@ -69,12 +70,17 @@
       max-width: 100%;
 
       #test {
-        content: url("./../../assets/image/picture2.jpg");
-        height: 343px;
-				width: 504px;
-				position: relative;
+				// background-image: url(http://lorempixel.com/480/200/nightlife/5);
+        // background-image: url(https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg);
+        // background-image: url("./../../assets/image/picture2.jpg");
+        // content: url("./../../assets/image/picture2.jpg");
+        // height: 343px;
+        // width: 504px;
+        position: relative;
+        // -webkit-background-clip: text;
+        // -webkit-text-fill-color: transparent;
 
-				.label {
+        .label {
           // position: absolute;
           // bottom: 9%;
           // left: 0;
@@ -90,8 +96,8 @@
           //   font-size: 1.3rem;
           // }
         }
-      }
-
+			}
+			
       div {
         width: 100%;
         height: 100%;
@@ -108,16 +114,29 @@
           left: 0;
           height: 15%;
           width: 60%;
-          background-color: azure;
+          // background-color: azure;
           display: flex;
           align-items: center;
 
           span {
             color: #000000;
-            padding-left: 5%;
+            // padding-left: 5%;
             font-size: 1.3rem;
-          }
-        }
+					}								
+				}
+
+				.mySvg.label {
+					background-color: transparent;
+				}
+				
+				.label::before {
+					content: '';						
+				}
+				
+				.label::after {
+					content: '';
+
+				}
       }
     }
   }
