@@ -8,17 +8,18 @@ import { DiscoverDetailComponent } from './discover/discover-detail/discover-det
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    data: { animation: 'Main'},
   },
   {
     path: 'discover',
     component: DiscoverComponent,
-    data: { page: 'discover'},
+    data: { animation: 'Discover'},
     children: [
       {
         path: ':id',
         component: DiscoverDetailComponent,
-        data: { page: 'discover-detail'}
+        data: { animation: 'DiscoverDetail'}
       }
     ]
   },

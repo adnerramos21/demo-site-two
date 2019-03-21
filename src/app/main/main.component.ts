@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { TweenLite } from 'gsap/TweenMax';
 
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',

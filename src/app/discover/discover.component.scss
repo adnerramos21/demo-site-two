@@ -64,13 +64,27 @@ $asset-image-path: "assets/image";
       }
     }
 
+    .selected-image-container {
+      .content-right {
+        #selected-image {
+          width: 504px;
+          height: 343px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+
     .photo-slide {
-			overflow-x: auto;
+      overflow-x: auto;
       overflow-y: hidden;
       max-width: 100%;
 
       #test {
-				// background-image: url(http://lorempixel.com/480/200/nightlife/5);
+        // background-image: url(http://lorempixel.com/480/200/nightlife/5);
         // background-image: url(https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg);
         // background-image: url("./../../assets/image/picture2.jpg");
         // content: url("./../../assets/image/picture2.jpg");
@@ -96,8 +110,8 @@ $asset-image-path: "assets/image";
           //   font-size: 1.3rem;
           // }
         }
-			}
-			
+      }
+
       div {
         width: 100%;
         height: 100%;
@@ -122,21 +136,20 @@ $asset-image-path: "assets/image";
             color: #000000;
             // padding-left: 5%;
             font-size: 1.3rem;
-					}								
-				}
+          }
+        }
 
-				.mySvg.label {
-					background-color: transparent;
-				}
-				
-				.label::before {
-					content: '';						
-				}
-				
-				.label::after {
-					content: '';
+        .mySvg.label {
+          background-color: transparent;
+        }
 
-				}
+        .label::before {
+          content: "";
+        }
+
+        .label::after {
+          content: "";
+        }
       }
     }
   }
