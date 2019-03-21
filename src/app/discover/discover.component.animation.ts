@@ -78,14 +78,33 @@ export const photoSlideAnimation = trigger('photoSlideAnimation', [
 ]);
 
 
-export const showHide = trigger('showHide', [
+export const showHideHeader = trigger('showHideHeader', [
     state('show', style({
         opacity: 1,
-        visibility: 'visible'
+        visibility: 'visible',
+        marginBottom: '5%',
+        height: 'auto'
     })),
     state('hide', style({
         opacity: 0,
-        visibility: 'hidden'
+        visibility: 'hidden',
+        marginBottom: '0',
+        height: 0
+    })),
+    transition('show <=> hide', [
+        animate('.3s')
+    ])
+]);
+
+
+export const showHide = trigger('showHide', [
+    state('show', style({
+        opacity: 1,
+        visibility: 'visible',
+    })),
+    state('hide', style({
+        opacity: 0,
+        visibility: 'hidden',
     })),
     transition('show <=> hide', [
         animate('.3s')

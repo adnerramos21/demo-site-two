@@ -17,25 +17,28 @@
       </div>
     </div>
 
-    <div fxLayout="row" class="title">
+    <div fxLayout="row" class="title" [@showHideHeader]="isVisible ? 'show' : 'hide'">
       <div fxFlex="100%">
         Projects
       </div>
     </div>
 
-    <div class="selected-image-container" fxLayout="row" fxLayoutGap="20px" [@routerTransition]="getState(outletRef)">
-      <div fxFlex="50%" class="content-left">
-        <router-outlet #outletRef="outlet"></router-outlet>
+    <!-- [@routerTransition]="getState(outletRef)" -->
+    <div class="selected-image-container" fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="50%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
+        <span class="back-span">
+          <i class="fas fa-long-arrow-alt-left"></i> &nbsp;&nbsp; Back to Projects
+        </span>
       </div>
       <div fxFlex="50%" class="content-right">
-        <div id="selected-image" style="width: 504px; height: 343px"></div>
+        <div id="selected-image"></div>
       </div>
     </div>
 
     <div fxLayout="row" class="photo-slide" fxLayoutGap="20px" [@photoSlideAnimation]="isVisible ? 'discover' : 'specific'">
 
-      <div class="photo-slide-item">
-        <img src="../../assets/image/picture1.jpg" alt="picture1">
+      <!-- <div class="photo-slide-item">
+        <img src="../../assets/image/picture1.jpg" alt="picture1" width="504" height="343">
         <div class="label">
           <span>
 
@@ -47,11 +50,11 @@
 
           </span>
         </div>
-      </div>
+      </div> -->
 
       <div class="photo-slide-item selected" (click)="selectedPicture(2)">
         <img src="../../assets/image/picture2.jpg" alt="picture2">
-        <div class="label">
+        <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
           <span>
 
             <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">
@@ -78,8 +81,8 @@
         </div>
       </div> -->
 
-      <div class="photo-slide-item">
-        <img src="../../assets/image/picture3.jpg" alt="picture3">
+      <!-- <div class="photo-slide-item">
+        <img src="../../assets/image/picture3.jpg" alt="picture3" width="504" height="343">
         <div class="label">
           <span>
 
@@ -91,10 +94,10 @@
 
           </span>
         </div>
-      </div>
+      </div> -->
 
-      <div class="photo-slide-item">
-        <img src="../../assets/image/picture4.jpg" alt="picture4">
+      <!-- <div class="photo-slide-item">
+        <img src="../../assets/image/picture4.jpg" alt="picture4" width="504" height="343">
         <div class="label">
           <span>
 
@@ -106,7 +109,7 @@
 
           </span>
         </div>
-      </div>
+      </div> -->
 
     </div>
 

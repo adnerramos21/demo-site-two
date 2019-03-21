@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
-import { routerTransition, showHide, photoSlideAnimation } from './discover.component.animation';
-import { TweenLite } from 'gsap/TweenMax';
+import { routerTransition, showHide, photoSlideAnimation, showHideHeader } from './discover.component.animation';
+import { TweenLite, TweenMax, Power3 } from 'gsap/TweenMax';
 
 @Component({
   selector: 'app-discover',
@@ -10,7 +10,8 @@ import { TweenLite } from 'gsap/TweenMax';
   animations: [
     routerTransition,
     photoSlideAnimation,
-    showHide
+    showHide,
+    showHideHeader
   ]
 })
 export class DiscoverComponent implements OnInit {
@@ -29,7 +30,9 @@ export class DiscoverComponent implements OnInit {
 
   selectedPicture(id: number) {
     let selectedItem = -1;
-    const selectedPictId = id - 1,
+
+    // selectedPictId = id - 1
+    const selectedPictId = 0,
       photoSlide = document.getElementsByClassName('photo-slide'),
       photoSlideItem = document.getElementsByClassName('photo-slide-item'),
       contentRight = document.getElementsByClassName('content-right'),
@@ -39,40 +42,60 @@ export class DiscoverComponent implements OnInit {
     this.router.navigate(['/discover', id]);
 
 
-    for (let index = 0; index < photoSlideItem.length; index++) {
+    // for (let index = 0; index < photoSlideItem.length; index++) {
 
-      if (photoSlideItem[index].classList.contains('selected')) {
-        selectedItem = index;
-      }
+    //   if (photoSlideItem[index].classList.contains('selected')) {
+    //     selectedItem = index;
+    //   }
 
-      if (index <= selectedItem) {
-        const checkIndex = index === 0 ? 0 : index - 1;
-        const widthToLeft = window.getComputedStyle(photoSlideItem[checkIndex]).width;
+    //   // move left items to the far left
+    //   if (index <= selectedItem) {
+    //     console.log(index, selectedItem);
+    //     console.log(photoSlideItem[index]);
 
-        TweenLite.to(photoSlideItem[checkIndex], .5, {
-          transform: `translateX(-${widthToLeft})`,
-          // opacity: 0,
-          // visibility: 'hidden',
-          // display: 'none'
-        });
-      }
+    //     const checkIndex = index === 0 ? 0 : index - 1;
+    //     const widthToLeft = +window.getComputedStyle(photoSlideItem[checkIndex]).width.slice(0, -2);
 
-      if (index > selectedItem) {
-        const widthToRight = window.getComputedStyle(photoSlideItem[index]).width;
+    //     TweenLite.to(photoSlideItem[checkIndex], .5, {
+    //       transform: `translateX(-${widthToLeft}px)`,
+    //       ease: Power3.easeOut
+    //     });
+    //   }
 
-        TweenLite.to(photoSlideItem[index], 1, {
-          transform: `translateX(${widthToRight})`,
-          // opacity: 0,
-          // visibility: 'hidden',
-          // display: 'none'
-        });
-      }
+    //   // move right items to the far right
+    //   if (index > selectedItem) {
+    //     const widthToRight = +window.getComputedStyle(photoSlideItem[index]).width.slice(0, -2) * 2;
+    //     TweenLite.to(photoSlideItem[index], 1, {
+    //       transform: `translateX(${widthToRight}px)`,
+    //       ease: Power3.easeOut
+    //     });
+    //   }
 
-    }
+    // }
 
-    console.log(contentRight, contentRight[0].getBoundingClientRect());
+
+
+    // TweenLite.to(photoSlideItem[0], .5, {
+    //   transform: `translateX(-504px)`,
+    //   ease: Power3.easeOut
+    // });
+
+
+    const currentRect = photoSlideItem[selectedPictId].getBoundingClientRect();
 
     selectedImage.appendChild(photoSlideItem[selectedPictId]);
+
+    // TweenMax.set(photoSlideItem[selectedPictId], { x: 0, y: 0 });
+
+    const newRect = photoSlideItem[selectedPictId].getBoundingClientRect();
+
+    console.log(currentRect, newRect);
+
+    TweenMax.from(photoSlideItem[selectedPictId], 1, {
+      x: currentRect.left - newRect.left,
+      y: (currentRect.top - newRect.top) + 50,
+      ease: Power3.easeOut
+    });
 
     //     bottom: 251.85000610351562
     // height: 0
