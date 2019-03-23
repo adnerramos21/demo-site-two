@@ -18,16 +18,21 @@ $asset-image-path: "assets/image";
 
     .top {
       margin: 3% 4%;
+      font-size: 1.2rem;
+      text-transform: uppercase;
 
       .left-side {
-        text-transform: uppercase;
+        text-align: left;
+      }
+
+      .center.title {
+        text-align: center;
       }
 
       .right-side {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        text-transform: uppercase;
 
         span {
           display: inline-block;
@@ -54,39 +59,40 @@ $asset-image-path: "assets/image";
       }
     }
 
-    .title {
-      margin-bottom: 5%;
-
-      div {
-        text-transform: uppercase;
-        text-align: center;
-        font-size: 2.5rem;
-      }
-    }
-
     .selected-image-container {
-      margin: auto 4%;
+      position: absolute;
+      width: 100%;
+      top: 18%;
 
-      .back-span {
-        cursor: pointer;
+      .content-left {
+        & > div {
+          margin-left: 4%;
+
+          .back-span {
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-left: 4%;
+            font-size: .91rem;
+          }
+        }
       }
-    //   .content-right {
-    //     #selected-image {
-    //       // width: 504px;
-    //       // height: 343px;
 
-    //       .photo-slide {
-    //         position: relative;
-    //       }
+      //   .content-right {
+      //     #selected-image {
+      //       // width: 504px;
+      //       // height: 343px;
 
-    //       img {
-    //         // width: 100%;
-    //         // height: 100%;
-    //       }
-    //     }
-    //   }
+      //       .photo-slide {
+      //         position: relative;
+      //       }
+
+      //       img {
+      //         // width: 100%;
+      //         // height: 100%;
+      //       }
+      //     }
+      //   }
     }
-
   }
 
   // .photo-slide {
@@ -129,17 +135,20 @@ $asset-image-path: "assets/image";
     overflow-y: hidden;
     max-width: 100%;
     margin: auto 10px;
-    max-height: 58%;
+    max-height: 70%;
   }
 
   div.photo-slide-item {
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
+    height: 510px;
+    width: 343px;
     position: relative;
+    margin-top: 75px;
 
     img {
-      height: 510px;
-      width: 343px;
+      height: auto;
+      width: 100%;
     }
 
     .label {
@@ -169,5 +178,4 @@ $asset-image-path: "assets/image";
       content: "";
     }
   }
-
 }

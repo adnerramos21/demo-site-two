@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { routerTransition, showHide, photoSlideAnimation, showHideHeader } from './discover.component.animation';
-import { TweenLite, TweenMax, Power3 } from 'gsap/TweenMax';
+import { TweenLite, Power3 } from 'gsap/TweenMax';
 
 @Component({
   selector: 'app-discover',
@@ -14,14 +14,22 @@ import { TweenLite, TweenMax, Power3 } from 'gsap/TweenMax';
     showHideHeader
   ]
 })
-export class DiscoverComponent implements OnInit {
+export class DiscoverComponent implements OnInit, AfterViewInit {
 
   isVisible: boolean;
+  photoSlideItems: Array<any> = [{ position: String, index: Number }];
+  photoItems = [
+    false, false, false, false
+  ];
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isVisible = true;
+    this.resetSelected();
+  }
+
+  ngAfterViewInit(): void {
   }
 
   getState(outletRef: RouterOutlet) {
@@ -29,88 +37,136 @@ export class DiscoverComponent implements OnInit {
   }
 
   selectedPicture(id: number) {
-    let selectedItem = -1;
+    const selectedPictId = (id - 1) < 0 ? 0 : id - 1,
+      photoSlideItem = document.querySelectorAll('#photo-slide > .photo-slide-item'),
+      selectedImage = document.getElementById('selected-image'),
+      photoSlide = document.querySelector('#photo-slide');
 
-    // selectedPictId = id - 1
-    const selectedPictId = 0,
-      photoSlide = document.getElementsByClassName('photo-slide'),
-      photoSlideItem = document.getElementsByClassName('photo-slide-item'),
-      contentRight = document.getElementsByClassName('content-right'),
-      selectedImage = document.getElementById('selected-image');
+    let translationSpaceXAxisObj;
 
     this.isVisible = false;
-    this.router.navigate(['/discover', id]);
-
-
-    // for (let index = 0; index < photoSlideItem.length; index++) {
-
-    //   if (photoSlideItem[index].classList.contains('selected')) {
-    //     selectedItem = index;
-    //   }
-
-    //   // move left items to the far left
-    //   if (index <= selectedItem) {
-    //     console.log(index, selectedItem);
-    //     console.log(photoSlideItem[index]);
-
-    //     const checkIndex = index === 0 ? 0 : index - 1;
-    //     const widthToLeft = +window.getComputedStyle(photoSlideItem[checkIndex]).width.slice(0, -2);
-
-    //     TweenLite.to(photoSlideItem[checkIndex], .5, {
-    //       transform: `translateX(-${widthToLeft}px)`,
-    //       ease: Power3.easeOut
-    //     });
-    //   }
-
-    //   // move right items to the far right
-    //   if (index > selectedItem) {
-    //     const widthToRight = +window.getComputedStyle(photoSlideItem[index]).width.slice(0, -2) * 2;
-    //     TweenLite.to(photoSlideItem[index], 1, {
-    //       transform: `translateX(${widthToRight}px)`,
-    //       ease: Power3.easeOut
-    //     });
-    //   }
-
-    // }
-
-
-
-    // TweenLite.to(photoSlideItem[0], .5, {
-    //   transform: `translateX(-504px)`,
-    //   ease: Power3.easeOut
-    // });
+    this.photoSlideItems = [];
+    // this.router.navigate(['/discover', id]);
 
 
     const currentRect = photoSlideItem[selectedPictId].getBoundingClientRect();
 
-    selectedImage.appendChild(photoSlideItem[selectedPictId]);
+    const newRect = selectedImage.getBoundingClientRect();
 
-    // TweenMax.set(photoSlideItem[selectedPictId], { x: 0, y: 0 });
+    TweenLite.to(photoSlideItem[selectedPictId], 6, {
+      x: newRect.left - currentRect.left,
+      y: 10,
+      marginTop: 0,
+      ease: Power3.easeOut,
+    });
 
-    const newRect = photoSlideItem[selectedPictId].getBoundingClientRect();
+    for (let index = 0; index < photoSlideItem.length; index++) {
 
-    console.log(currentRect, newRect);
+      // move left items to the far left
+      if (index < selectedPictId || selectedPictId === 0) {
+        this.photoSlideItems.push({ position: 'left', index: index });
+      }
 
-    TweenMax.from(photoSlideItem[selectedPictId], 1, {
-      x: currentRect.left - newRect.left,
-      y: (currentRect.top - newRect.top) + 50,
+      // target acquired at this index
+      if (index === selectedPictId) {
+        this.photoItems[index] = true;
+        this.photoSlideItems.push({ position: 'selected', index: index });
+      }
+
+      // move right items to the far right
+      if (index > selectedPictId) {
+        this.photoSlideItems.push({ position: 'right', index: index });
+      }
+
+    }
+
+    translationSpaceXAxisObj = this.calculatePhotoItemTranslation(photoSlide);
+
+    this.photoSlideItems.map((val, index) => {
+      if (val) {
+        if (val.position === 'left') {
+          this.pushToTheLeft(photoSlideItem[index], translationSpaceXAxisObj.spaceToLeft);
+        }
+        if (val.position === 'right') {
+          this.pushToTheRight(photoSlideItem[index], translationSpaceXAxisObj.spaceToRight);
+        }
+      }
+    });
+  }
+
+  calculatePhotoItemTranslation(photoSlide: Element): Object {
+    const photoElement = window.getComputedStyle(photoSlide),
+      currentElementWidth = +photoElement.width.slice(0, -2),
+      currentElementMarginLeft = +photoElement.marginLeft.slice(0, -2),
+      currentElementMarginRight = +photoElement.marginRight.slice(0, -2),
+      totalWidthPhotoElement = currentElementWidth + currentElementMarginLeft + currentElementMarginRight,
+      totalPhotoElementDivided = totalWidthPhotoElement / this.photoSlideItems.length;
+
+    let spaceToLeft = 0, spaceToRight = 0, counterLeft = 0, counterRight = 0;
+
+    this.photoSlideItems.map(val => {
+      if (val) {
+        if (val.position === 'left') {
+          counterLeft++;
+        }
+        if (val.position === 'right') {
+          counterRight++;
+        }
+      }
+    });
+
+
+    spaceToLeft = totalPhotoElementDivided * counterLeft;
+    spaceToRight = totalPhotoElementDivided * counterRight;
+
+    return { spaceToLeft, spaceToRight };
+  }
+
+  pushToTheLeft(obj: Element, XAxis): void {
+    TweenLite.to(obj, 6, {
+      transform: `translate3d(-${XAxis}px, 0 , 0)`,
+      ease: Power3.easeOut
+    });
+  }
+
+  pushToTheRight(obj: Element, XAxis): void {
+    TweenLite.to(obj, 6, {
+      transform: `translate3d(${XAxis}px, 0 , 0)`,
+      ease: Power3.easeOut
+    });
+  }
+
+  backToProject(): void {
+    const photoSlideItemSelected = document.querySelector('#photo-slide > .photo-slide-item.selected');
+
+    this.isVisible = true;
+    // this.router.navigate(['/discover']);
+
+    TweenLite.to(photoSlideItemSelected, 6, {
+      x: 0,
+      y: 0,
+      marginTop: '75px',
       ease: Power3.easeOut
     });
 
-    //     bottom: 251.85000610351562
-    // height: 0
-    // left: 778
-    // right: 1536
-    // top: 251.85000610351562
-    // width: 758
-    // x: 778
-    // y: 251.85000610351562
+    this.restoreTheOthers();
+  }
 
-    // TweenLite.to(photoSlide, 1, {
-    //   transform: `translate3d(314px, -349px, 0)`,
-    // }).delay(1);
+  restoreTheOthers(): void {
+    const photoSlideItem = document.querySelectorAll('#photo-slide > .photo-slide-item:not(.selected)');
 
+    for (let index = 0; index < photoSlideItem.length; index++) {
+      TweenLite.to(photoSlideItem[index], 6, {
+        transform: `translate3d(0, 0, 0)`,
+        ease: Power3.easeOut
+      });
+    }
 
+    this.resetSelected();
+  }
+
+  resetSelected() {
+    this.photoItems.map(val => val = false);
   }
 
 }
