@@ -60,25 +60,25 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
       ease: Power3.easeOut,
     });
 
+
     for (let index = 0; index < photoSlideItem.length; index++) {
 
-      // move left items to the far left
-      if (index < selectedPictId || selectedPictId === 0) {
+      if (index < selectedPictId) {
+        // move left items to the far left
         this.photoSlideItems.push({ position: 'left', index: index });
-      }
 
-      // target acquired at this index
-      if (index === selectedPictId) {
+      } else if (index === selectedPictId) {
+        // target acquired at this index
         this.photoItems[index] = true;
         this.photoSlideItems.push({ position: 'selected', index: index });
-      }
 
-      // move right items to the far right
-      if (index > selectedPictId) {
+      } else if (index > selectedPictId) {
+        // move right items to the far right
         this.photoSlideItems.push({ position: 'right', index: index });
       }
 
     }
+
 
     translationSpaceXAxisObj = this.calculatePhotoItemTranslation(photoSlide);
 
@@ -150,6 +150,7 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     });
 
     this.restoreTheOthers();
+    this.removeSelectedClass(photoSlideItemSelected);
   }
 
   restoreTheOthers(): void {
@@ -163,6 +164,10 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     }
 
     this.resetSelected();
+  }
+
+  removeSelectedClass(obj) {
+    obj.classList.remove('selected');
   }
 
   resetSelected() {
