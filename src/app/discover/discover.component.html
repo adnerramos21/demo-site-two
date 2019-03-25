@@ -41,6 +41,45 @@
             <i class="fas fa-long-arrow-alt-left"></i> &nbsp;&nbsp; Back to Projects
           </span>
         </div>
+        <div class="detail-info">
+          <div class="detail-title">Takay - Silver</div>
+          <div class="detail-subtext">
+            <p>
+              A production for Document Journal A Retro <br>
+              Treasure Travel of Women Principles
+            </p>
+          </div>
+          <div class="info-wrapper" id="info-wrapper">
+
+            <div class="info">
+              <div class="top-side-line">
+                <div class="bottom-line">
+                  <span>
+
+                    <div class="info-item" fxLayout="row">
+                      <div fxFlex="50%">Services</div>
+                      <div fxFlex="50%">Production/Film</div>
+                    </div>
+                    <div class="info-item" fxLayout="row">
+                      <div fxFlex="50%">Directed By</div>
+                      <div fxFlex="50%">Edward Osborne</div>
+                    </div>
+                    <div class="info-item" fxLayout="row">
+                      <div fxFlex="50%">Art Direction By</div>
+                      <div fxFlex="50%">Christopher Bowl</div>
+                    </div>
+                    <div class="info-item" fxLayout="row">
+                      <div fxFlex="50%">Shot on Location in</div>
+                      <div fxFlex="50%">Spain</div>
+                    </div>
+
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
       <div fxFlex="50%" class="content-right">
         <div id="selected-image"></div>
@@ -97,7 +136,7 @@
 
       <div class="photo-slide-item" [ngClass]="{'selected': photoItems[3 - 1]}" (click)="selectedPicture(3)" tabindex="3">
         <img src="../../assets/image/picture3.jpg" alt="picture3" width="504" height="343">
-        <div class="label">
+        <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
           <span>
 
             <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">
@@ -112,7 +151,7 @@
 
       <div class="photo-slide-item" [ngClass]="{'selected': photoItems[4 - 1]}" (click)="selectedPicture(4)" tabindex="4">
         <img src="../../assets/image/picture4.jpg" alt="picture4" width="504" height="343">
-        <div class="label">
+        <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
           <span>
 
             <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">

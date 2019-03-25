@@ -40,7 +40,8 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     const selectedPictId = (id - 1) < 0 ? 0 : id - 1,
       photoSlideItem = document.querySelectorAll('#photo-slide > .photo-slide-item'),
       selectedImage = document.getElementById('selected-image'),
-      photoSlide = document.querySelector('#photo-slide');
+      photoSlide = document.querySelector('#photo-slide'),
+      infoWrapper = document.querySelector('#info-wrapper');
 
     let translationSpaceXAxisObj;
 
@@ -53,7 +54,7 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
 
     const newRect = selectedImage.getBoundingClientRect();
 
-    TweenLite.to(photoSlideItem[selectedPictId], 6, {
+    TweenLite.to(photoSlideItem[selectedPictId], 1.5, {
       x: newRect.left - currentRect.left,
       y: 10,
       marginTop: 0,
@@ -92,6 +93,8 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
         }
       }
     });
+
+    infoWrapper.classList.add('animate-lines');
   }
 
   calculatePhotoItemTranslation(photoSlide: Element): Object {
@@ -123,26 +126,30 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
   }
 
   pushToTheLeft(obj: Element, XAxis): void {
-    TweenLite.to(obj, 6, {
+    TweenLite.to(obj, 1.5, {
       transform: `translate3d(-${XAxis}px, 0 , 0)`,
       ease: Power3.easeOut
     });
   }
 
   pushToTheRight(obj: Element, XAxis): void {
-    TweenLite.to(obj, 6, {
+    TweenLite.to(obj, 1.5, {
       transform: `translate3d(${XAxis}px, 0 , 0)`,
       ease: Power3.easeOut
     });
   }
 
   backToProject(): void {
-    const photoSlideItemSelected = document.querySelector('#photo-slide > .photo-slide-item.selected');
+    const photoSlideItemSelected = document.querySelector('#photo-slide > .photo-slide-item.selected'),
+      infoWrapper = document.querySelector('#info-wrapper');
+
+    console.log('monitor for backToProject():', photoSlideItemSelected);
 
     this.isVisible = true;
+    infoWrapper.classList.remove('animate-lines');
     // this.router.navigate(['/discover']);
 
-    TweenLite.to(photoSlideItemSelected, 6, {
+    TweenLite.to(photoSlideItemSelected, 1.5, {
       x: 0,
       y: 0,
       marginTop: '75px',
@@ -157,7 +164,7 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     const photoSlideItem = document.querySelectorAll('#photo-slide > .photo-slide-item:not(.selected)');
 
     for (let index = 0; index < photoSlideItem.length; index++) {
-      TweenLite.to(photoSlideItem[index], 6, {
+      TweenLite.to(photoSlideItem[index], 1.5, {
         transform: `translate3d(0, 0, 0)`,
         ease: Power3.easeOut
       });

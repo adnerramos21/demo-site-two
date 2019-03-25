@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,800");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
 $asset-image-path: "assets/image";
 
 .discover-wrapper {
@@ -18,7 +18,7 @@ $asset-image-path: "assets/image";
 
     .top {
       margin: 3% 4%;
-      font-size: 1.2rem;
+      font-size: 1rem;
       text-transform: uppercase;
 
       .left-side {
@@ -65,14 +65,133 @@ $asset-image-path: "assets/image";
       top: 18%;
 
       .content-left {
-        & > div {
-          margin-left: 4%;
+        margin-left: 4%;
 
+        & > div {
           .back-span {
             cursor: pointer;
             text-transform: uppercase;
-            margin-left: 4%;
-            font-size: .91rem;
+            font-size: 0.91rem;
+          }
+        }
+
+        .detail-info {
+          margin-top: 6%;
+
+          .detail-title {
+            font-size: 3rem;
+            font-weight: 700;
+          }
+
+          .detail-subtext {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            margin-bottom: 50px;
+          }
+
+          .info-wrapper {
+            width: 75%;
+            max-width: 100%;
+            position: relative;
+
+            div {
+              height: 100%;
+              line-height: 2.5;
+              position: relative;
+            }
+
+            span {
+              opacity: 0;
+              display: block;
+              font-size: 0.9rem;
+              padding: 35px;
+
+              .info-item {
+                div:first-child {
+                  font-weight: 700;
+                  text-transform: uppercase;
+                }
+
+                div:nth-child(2) {
+                  color: rgba(255, 255, 255, 0.5);
+                }
+              }
+            }
+
+            .top-side-line::before {
+              content: "";
+              position: absolute;
+              top: 0;
+              right: 50%;
+              width: 0;
+              height: 0;
+              border: 1px solid white;
+              border-right: none;
+              border-bottom: none;
+              transition: height 0.15s ease-out 0.15s, width 0.15s ease-out;
+            }
+
+            .top-side-line::after {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 50%;
+              width: 0;
+              height: 0;
+              border: 1px solid white;
+              border-left: none;
+              border-bottom: none;
+              transition: height 0.15s ease-out 0.15s, width 0.15s ease-out;
+            }
+
+            .bottom-line::before {
+              content: "";
+              position: absolute;
+              left: 0%;
+              bottom: 0;
+              width: 0;
+              border: 1px solid white;
+              border-top: none;
+              border-left: none;
+              border-right: none;
+              transition: width 0.15s ease-out 0.3s;
+            }
+
+            .bottom-line::after {
+              content: "";
+              position: absolute;
+              right: 0%;
+              bottom: 0;
+              width: 0;
+              border: 1px solid white;
+              border-top: none;
+              border-left: none;
+              border-right: none;
+              transition: width 0.15s ease-out 0.3s;
+            }
+          }
+
+          .animate-lines {
+            span {
+              opacity: 1;
+              transition: opacity 0.5s ease-out 0.2s;
+            }
+
+            .top-side-line::before {
+              width: calc(50% - 1px);
+              height: calc(100% - 2px);
+            }
+            .top-side-line::after {
+              width: calc(50% - 1px);
+              height: calc(100% - 2px);
+            }
+            .bottom-line::before {
+              width: 50%;
+            }
+
+            .bottom-line::after {
+              width: 50%;
+            }
           }
         }
       }
