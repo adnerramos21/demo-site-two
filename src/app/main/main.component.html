@@ -3,26 +3,30 @@
 
   <div class="content">
 
-    <div fxLayout="row" class="top">
-      <div fxFlex="50%" class="left-side">Lola</div>
+    <div fxLayout="row" class="top" fxLayoutAlign="start center">
+      <div fxFlex="50%" class="left-side">
+        <div fxLayout="row">
+          <span class="logo">
+            Lola
+          </span>
+        </div>
+      </div>
 
       <div fxFlex="50%" class="right-side">
-        <span class="discover-text" [routerLink]="[ '/discover' ]" routerLinkActive="active">
-          Discover
-        </span>
-        <span class="menu-icon-container">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
-        </span>
+        <div class="discover-text" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" [routerLink]="[ '/discover' ]">
+          <div>
+            Discover
+          </div>
+          <div class="menu-icon-container">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="social">
-      <span>Instagram</span>
-      <span>Twitter</span>
-      <span>Facebook</span>
-    </div>
+
 
     <div class="title-wrapper">
       <div class="title">
@@ -37,6 +41,12 @@
           <div class="vertical-line"> </div>
         </div>
 
+      </div>
+
+      <div class="social">
+        <span>Instagram</span>
+        <span>Twitter</span>
+        <span>Facebook</span>
       </div>
     </div>
 

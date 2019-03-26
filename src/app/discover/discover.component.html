@@ -3,7 +3,11 @@
   <div class="discover-content">
 
     <div fxLayout="row" class="top">
-      <div fxFlex="33.3%" class="left-side">Lola</div>
+      <div fxFlex="33.3%" class="left-side">
+        <span [routerLink]="[ '/' ]" class="logo">
+          Lola
+        </span>
+      </div>
 
       <div fxFlex="33.3%" class="center title">
         <span [@showHide]="isVisible ? 'show' : 'hide'">
