@@ -99,18 +99,17 @@
           text-align: center;
           position: relative;
 
-          .inner-text {
-            position: relative;
-            font-weight: 400;
-            left: 13%;
-            bottom: 45px;
-            font-size: 0.85rem;
-          }
-
           svg {
             width: 100px;
             height: 100px;
             transform: rotate(90deg);
+
+            #scroll-text {
+              transform: rotate(-90deg) translate(-92px, 0);
+              font-family: "Open Sans", Helvetica, sans-serif;
+              font-size: 0.85rem;
+              font-weight: 400;
+            }
 
             #circle-text {
               font-size: 0.8rem;
@@ -126,11 +125,56 @@
             content: "";
             position: relative;
             top: -14px;
-            right: -54%;
+            right: -50%;
             width: 1px;
             height: 0;
             background-color: #fff;
           }
+        }
+      }
+
+      .title-md {
+        top: 13%;
+
+        & div:first-child {
+          font-size: 8rem;
+          height: 10rem;
+        }
+
+        & div:nth-child(2) {
+          font-size: 3.5rem;
+          color: #000;
+          text-shadow: 1px 1px 8px #fff;
+        }
+      }
+
+      .title-sm {
+        top: 9.5%;
+
+        & div:first-child {
+          font-size: 5rem;
+          height: 7rem;
+        }
+
+        & div:nth-child(2) {
+          font-size: 2rem;
+          color: #000;
+          text-shadow: 1px 1px 8px #fff;
+        }
+      }
+
+      .title-xs {
+        top: 5.5%;
+
+        & div:first-child {
+          font-size: 3.5rem;
+          height: 5rem;
+        }
+
+        & div:nth-child(2) {
+          font-size: 1.5rem;
+          color: #000;
+          text-shadow: 1px 1px 8px #fff;
         }
       }
     }
@@ -140,7 +184,6 @@
       overflow: hidden;
       position: relative;
       top: 50%;
-
 
       .name {
         width: 675px;
