@@ -152,7 +152,9 @@ export class DiscoverComponent implements OnInit {
       }
     });
 
-    infoWrapper.classList.add('animate-lines');
+
+    infoWrapper.classList.replace('remove-lines', 'animate-lines');
+
   }
 
   setDetailInfo(obj: object) {
@@ -214,7 +216,7 @@ export class DiscoverComponent implements OnInit {
       infoWrapper = document.querySelector('#info-wrapper');
 
     this.isVisible = true;
-    infoWrapper.classList.remove('animate-lines');
+    infoWrapper.classList.replace('animate-lines', 'remove-lines');
     // this.router.navigate(['/discover']);
 
     TweenLite.to(photoSlideItemSelected, .8, {
