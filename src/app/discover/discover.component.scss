@@ -67,19 +67,23 @@ $asset-image-path: "assets/image";
       .content-left {
         margin-left: 4%;
 
-        & > div {
-          .back-span {
+        .back-button {
+          font-size: 0.91rem;
+          
+          .back-arrow-text,
+          .back-arrow {
             cursor: pointer;
             text-transform: uppercase;
-            font-size: 0.91rem;
           }
+         
         }
 
         .detail-info {
           margin-top: 6%;
 
           .detail-title {
-            font-size: 3rem;
+            text-transform: uppercase;
+            font-size: 2.6rem;
             font-weight: 700;
           }
 
@@ -128,7 +132,7 @@ $asset-image-path: "assets/image";
               border: 1px solid white;
               border-right: none;
               border-bottom: none;
-              transition: height 0.15s ease-out 0.15s, width 0.15s ease-out;
+              transition: height 0.25s ease-out 0.4s, width 0.4s ease-out;
             }
 
             .top-side-line::after {
@@ -141,7 +145,7 @@ $asset-image-path: "assets/image";
               border: 1px solid white;
               border-left: none;
               border-bottom: none;
-              transition: height 0.15s ease-out 0.15s, width 0.15s ease-out;
+              transition: height 0.25s ease-out 0.4s, width 0.4s ease-out;
             }
 
             .bottom-line::before {
@@ -154,7 +158,7 @@ $asset-image-path: "assets/image";
               border-top: none;
               border-left: none;
               border-right: none;
-              transition: width 0.15s ease-out 0.3s;
+              transition: width 0.15s ease-out 0.65s;
             }
 
             .bottom-line::after {
@@ -167,7 +171,7 @@ $asset-image-path: "assets/image";
               border-top: none;
               border-left: none;
               border-right: none;
-              transition: width 0.15s ease-out 0.3s;
+              transition: width 0.15s ease-out 0.65s;
             }
           }
 

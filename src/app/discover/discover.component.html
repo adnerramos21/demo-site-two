@@ -24,29 +24,39 @@
     </div>
 
 
-    <!-- [@showHideHeader]="isVisible ? 'show' : 'hide'" -->
-    <!-- <div fxLayout="row" class="title" id="title">
-      <div fxFlex="100%">
-        <span [@showHide]="isVisible ? 'show' : 'hide'">
-          Projects
-        </span>
-      </div>
-    </div> -->
 
     <!-- [@routerTransition]="getState(outletRef)" -->
     <div class="selected-image-container" fxLayout="row" fxLayoutGap="20px">
       <div fxFlex="50%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
-        <div>
-          <span class="back-span" (click)="backToProject()">
-            <i class="fas fa-long-arrow-alt-left"></i> &nbsp;&nbsp; Back to Projects
-          </span>
-        </div>
+        <span>
+          <div class="back-button" (click)="backToProject()" fxLayout="row">
+            <!-- <i class="fas fa-long-arrow-alt-left"></i>  -->
+            <span class="back-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="75" height="25.476" viewBox="0 0 116.738 25.476">
+                <g id="back-arrow" data-name="back-arrow" transform="translate(-370.762 -333.0)">
+                  <line id="Line_1" data-name="Line 1" x2="112" transform="translate(373.5 341.5)" fill="none" stroke="#fff"
+                    stroke-linecap="round" stroke-width="3" />
+                  <line id="Line_2" data-name="Line 2" x1="17" y2="10" transform="translate(373.5 331.5)" fill="none"
+                    stroke="#fff" stroke-linecap="round" stroke-width="3" />
+                  <line id="Line_3" data-name="Line 3" x1="17" y1="10" transform="translate(373.5 341.5)" fill="none"
+                    stroke="#fff" stroke-linecap="round" stroke-width="3" />
+                </g>
+              </svg>
+            </span>
+
+            &nbsp;&nbsp;
+            <span class="back-arrow-text">
+              Back to Projects
+            </span>
+          </div>
+        </span>
+
         <div class="detail-info">
-          <div class="detail-title">Takay - Silver</div>
+          <div class="detail-title"> {{detailTitle}}</div>
           <div class="detail-subtext">
             <p>
-              A production for Document Journal A Retro <br>
-              Treasure Travel of Women Principles
+              {{subtext1}} <br>
+              {{subtext2}}
             </p>
           </div>
           <div class="info-wrapper" id="info-wrapper">
@@ -58,19 +68,19 @@
 
                     <div class="info-item" fxLayout="row">
                       <div fxFlex="50%">Services</div>
-                      <div fxFlex="50%">Production/Film</div>
+                      <div fxFlex="50%"> {{services}}</div>
                     </div>
                     <div class="info-item" fxLayout="row">
                       <div fxFlex="50%">Directed By</div>
-                      <div fxFlex="50%">Edward Osborne</div>
+                      <div fxFlex="50%"> {{directedBy}} </div>
                     </div>
                     <div class="info-item" fxLayout="row">
                       <div fxFlex="50%">Art Direction By</div>
-                      <div fxFlex="50%">Christopher Bowl</div>
+                      <div fxFlex="50%">{{artDirectionBy}}</div>
                     </div>
                     <div class="info-item" fxLayout="row">
                       <div fxFlex="50%">Shot on Location in</div>
-                      <div fxFlex="50%">Spain</div>
+                      <div fxFlex="50%">{{shotLocationIn}}</div>
                     </div>
 
                   </span>
@@ -90,30 +100,16 @@
     <div fxLayout="row" id="photo-slide" class="photo-slide" fxLayoutGap="20px" fxLayoutAlign="space-around none"
       [@photoSlideAnimation]="isVisible ? 'discover' : 'specific'">
 
-      <div class="photo-slide-item" [ngClass]="{'selected': photoItems[1 - 1]}" (click)="selectedPicture(1)" tabindex="1">
-        <img src="../../assets/image/picture1.jpg" alt="picture1">
+      <div *ngFor="let photoItem of photoItems; let ind = index" class="photo-slide-item" [ngClass]="{'selected': photoItem.selected}"
+        (click)="selectedPicture(ind, photoItem)" [tabindex]="ind">
+        <img [src]="photoItem.source" [alt]="photoItem.name">
         <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
           <span>
 
             <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">
               <path d="M301.13,279.366v50H565.019l36.111-25-36.111-25Z" transform="translate(-300.63 -278.866)" fill="rgba(240, 255, 255, .8)"
                 stroke="#707070" stroke-width="0" />
-              <text x="10" y="33" fill="#000">TAKAI - SILVER</text>
-            </svg>
-
-          </span>
-        </div>
-      </div>
-
-      <div class="photo-slide-item" [ngClass]="{'selected': photoItems[2 - 1]}" (click)="selectedPicture(2)" tabindex="2">
-        <img src="../../assets/image/picture2.jpg" alt="picture2">
-        <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
-          <span>
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">
-              <path d="M301.13,279.366v50H565.019l36.111-25-36.111-25Z" transform="translate(-300.63 -278.866)" fill="rgba(240, 255, 255, .8)"
-                stroke="#707070" stroke-width="0" />
-              <text x="10" y="33" fill="#000">TAKAI - SILVER</text>
+              <text x="10" y="33" fill="#000"> {{photoItem.label}} </text>
             </svg>
 
           </span>
@@ -134,35 +130,6 @@
         </div>
       </div> -->
 
-      <div class="photo-slide-item" [ngClass]="{'selected': photoItems[3 - 1]}" (click)="selectedPicture(3)" tabindex="3">
-        <img src="../../assets/image/picture3.jpg" alt="picture3" width="504" height="343">
-        <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
-          <span>
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">
-              <path d="M301.13,279.366v50H565.019l36.111-25-36.111-25Z" transform="translate(-300.63 -278.866)" fill="rgba(240, 255, 255, .8)"
-                stroke="#707070" stroke-width="0" />
-              <text x="10" y="33" fill="#000">TAKAI - SILVER</text>
-            </svg>
-
-          </span>
-        </div>
-      </div>
-
-      <div class="photo-slide-item" [ngClass]="{'selected': photoItems[4 - 1]}" (click)="selectedPicture(4)" tabindex="4">
-        <img src="../../assets/image/picture4.jpg" alt="picture4" width="504" height="343">
-        <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
-          <span>
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">
-              <path d="M301.13,279.366v50H565.019l36.111-25-36.111-25Z" transform="translate(-300.63 -278.866)" fill="rgba(240, 255, 255, .8)"
-                stroke="#707070" stroke-width="0" />
-              <text x="10" y="33" fill="#000">TAKAI - SILVER</text>
-            </svg>
-
-          </span>
-        </div>
-      </div>
 
     </div>
 

@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { routerTransition, showHide, photoSlideAnimation, showHideHeader } from './discover.component.animation';
-import { TweenLite, Power3 } from 'gsap/TweenMax';
+import { TweenLite, TweenMax, Power3, Power4 } from 'gsap/TweenMax';
+
 
 @Component({
   selector: 'app-discover',
@@ -14,34 +15,93 @@ import { TweenLite, Power3 } from 'gsap/TweenMax';
     showHideHeader
   ]
 })
-export class DiscoverComponent implements OnInit, AfterViewInit {
+export class DiscoverComponent implements OnInit {
 
   isVisible: boolean;
   photoSlideItems: Array<any> = [{ position: String, index: Number }];
+
+  detailTitle = '';
+  subtext1 = '';
+  subtext2 = '';
+  services = '';
+  directedBy = '';
+  artDirectionBy = '';
+  shotLocationIn = '';
+
   photoItems = [
-    false, false, false, false
+    {
+      name: 'picture1',
+      source: './../assets/image/picture1.jpg',
+      label: 'TAKAI - SILVER',
+      selected: false,
+      detailTitle: 'TAKAY - SILVER',
+      subtext1: 'A production for Document Journal A Retro',
+      subtext2: 'Treasure Travel of Women Principles',
+      services: 'Production/Film',
+      directedBy: 'Edward Osborne',
+      artDirectionBy: 'Christopher Bowl',
+      shotLocationIn: 'Spain'
+    },
+    {
+      name: 'picture2',
+      source: './../assets/image/picture2.jpg',
+      label: 'DANI - SILVA',
+      selected: false,
+      detailTitle: 'DANI - SILVA',
+      subtext1: 'A production for Document Journal A Retro',
+      subtext2: 'Treasure Travel of Women Principles',
+      services: 'Production/Film',
+      directedBy: 'Will Shoemaker',
+      artDirectionBy: 'Lilly Shoemaker',
+      shotLocationIn: 'Brazil'
+    },
+    {
+      name: 'picture3',
+      source: './../assets/image/picture3.jpg',
+      label: 'JORGE - RICH',
+      selected: false,
+      detailTitle: 'JORGE - RICH',
+      subtext1: 'A production for Document Journal A Retro',
+      subtext2: 'Treasure Travel of Women Principles',
+      services: 'Production/Film',
+      directedBy: 'Justin Crawford',
+      artDirectionBy: 'Michael W. Smith',
+      shotLocationIn: 'Greece'
+    },
+    {
+      name: 'picture4',
+      source: './../assets/image/picture4.jpg',
+      label: 'TRAY - DAYMOND',
+      selected: false,
+      detailTitle: 'TRAY - DAYMOND',
+      subtext1: 'A production for Document Journal A Retro',
+      subtext2: 'Treasure Travel of Women Principles',
+      services: 'Production/Film',
+      directedBy: 'Frank Cruise',
+      artDirectionBy: 'James Watts',
+      shotLocationIn: 'Morocco'
+    }
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { console.clear(); }
 
   ngOnInit(): void {
     this.isVisible = true;
     this.resetSelected();
   }
 
-  ngAfterViewInit(): void {
-  }
-
-  getState(outletRef: RouterOutlet) {
+  getState(outletRef: RouterOutlet): any {
     return outletRef && outletRef.activatedRouteData && outletRef.activatedRouteData['animation'];
   }
 
-  selectedPicture(id: number) {
-    const selectedPictId = (id - 1) < 0 ? 0 : id - 1,
+  selectedPicture(id: number, itemObj: object): void {
+    const selectedPictId = id,
       photoSlideItem = document.querySelectorAll('#photo-slide > .photo-slide-item'),
       selectedImage = document.getElementById('selected-image'),
       photoSlide = document.querySelector('#photo-slide'),
-      infoWrapper = document.querySelector('#info-wrapper');
+      infoWrapper = document.querySelector('#info-wrapper'),
+      currentRect = photoSlideItem[selectedPictId].getBoundingClientRect(),
+      newRect = selectedImage.getBoundingClientRect();
 
     let translationSpaceXAxisObj;
 
@@ -49,16 +109,14 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     this.photoSlideItems = [];
     // this.router.navigate(['/discover', id]);
 
+    this.setDetailInfo(itemObj);
 
-    const currentRect = photoSlideItem[selectedPictId].getBoundingClientRect();
 
-    const newRect = selectedImage.getBoundingClientRect();
-
-    TweenLite.to(photoSlideItem[selectedPictId], 1.5, {
+    TweenLite.to(photoSlideItem[selectedPictId], 1, {
       x: newRect.left - currentRect.left,
       y: 10,
       marginTop: 0,
-      ease: Power3.easeOut,
+      ease: Power4.easeOut,
     });
 
 
@@ -70,7 +128,7 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
 
       } else if (index === selectedPictId) {
         // target acquired at this index
-        this.photoItems[index] = true;
+        this.photoItems[index].selected = true;
         this.photoSlideItems.push({ position: 'selected', index: index });
 
       } else if (index > selectedPictId) {
@@ -95,6 +153,16 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     });
 
     infoWrapper.classList.add('animate-lines');
+  }
+
+  setDetailInfo(obj: object) {
+    this.detailTitle = obj['detailTitle'];
+    this.subtext1 = obj['subtext1'];
+    this.subtext2 = obj['subtext2'];
+    this.services = obj['services'];
+    this.directedBy = obj['directedBy'];
+    this.artDirectionBy = obj['artDirectionBy'];
+    this.shotLocationIn = obj['shotLocationIn'];
   }
 
   calculatePhotoItemTranslation(photoSlide: Element): Object {
@@ -125,17 +193,19 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     return { spaceToLeft, spaceToRight };
   }
 
-  pushToTheLeft(obj: Element, XAxis): void {
-    TweenLite.to(obj, 1.5, {
-      transform: `translate3d(-${XAxis}px, 0 , 0)`,
-      ease: Power3.easeOut
+  pushToTheLeft(obj: Element, XAxis: number): void {
+    TweenLite.to(obj, .8, {
+      x: -XAxis,
+      y: 0,
+      ease: Power4.easeOut,
     });
   }
 
-  pushToTheRight(obj: Element, XAxis): void {
-    TweenLite.to(obj, 1.5, {
-      transform: `translate3d(${XAxis}px, 0 , 0)`,
-      ease: Power3.easeOut
+  pushToTheRight(obj: Element, XAxis: number): void {
+    TweenLite.to(obj, .8, {
+      x: XAxis,
+      y: 0,
+      ease: Power4.easeOut,
     });
   }
 
@@ -143,17 +213,15 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     const photoSlideItemSelected = document.querySelector('#photo-slide > .photo-slide-item.selected'),
       infoWrapper = document.querySelector('#info-wrapper');
 
-    console.log('monitor for backToProject():', photoSlideItemSelected);
-
     this.isVisible = true;
     infoWrapper.classList.remove('animate-lines');
     // this.router.navigate(['/discover']);
 
-    TweenLite.to(photoSlideItemSelected, 1.5, {
+    TweenLite.to(photoSlideItemSelected, .8, {
       x: 0,
       y: 0,
       marginTop: '75px',
-      ease: Power3.easeOut
+      ease: Power4.easeOut
     });
 
     this.restoreTheOthers();
@@ -164,21 +232,22 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     const photoSlideItem = document.querySelectorAll('#photo-slide > .photo-slide-item:not(.selected)');
 
     for (let index = 0; index < photoSlideItem.length; index++) {
-      TweenLite.to(photoSlideItem[index], 1.5, {
-        transform: `translate3d(0, 0, 0)`,
-        ease: Power3.easeOut
+      TweenLite.to(photoSlideItem[index], .8, {
+        x: 0,
+        y: 0,
+        ease: Power4.easeOut
       });
     }
 
     this.resetSelected();
   }
 
-  removeSelectedClass(obj) {
+  removeSelectedClass(obj: Element): void {
     obj.classList.remove('selected');
   }
 
-  resetSelected() {
-    this.photoItems.map(val => val = false);
+  resetSelected(): void {
+    this.photoItems.map(val => val.selected = false);
   }
 
 }
