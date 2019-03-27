@@ -1,25 +1,34 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,800");
 
+.bg-image {
+  content: url("./../../assets/image/landing-background.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: auto;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.bg-image-lt-md {
+  min-width: 1090px;
+}
+
 .wrapper {
   font-family: "Open Sans", Helvetica, sans-serif;
+  height: auto;
+  width: 100%;
   height: 100%;
-  position: relative;
   color: #fff;
   overflow-x: hidden;
-
-  .bg-image {
-    width: 100%;
-    height: auto;
-  }
+  z-index: 1;
+  position: relative;
 
   .content {
     margin: 3% 4% 0;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    position: relative;
 
     .top {
       .left-side {
@@ -74,7 +83,6 @@
     }
 
     .title-wrapper {
-      position: relative;
       height: 550px;
 
       .title {
@@ -87,12 +95,13 @@
         & div:first-child {
           font-size: 10rem;
           height: 12rem;
+          text-shadow: 1px 1px 4px #000;
         }
 
         & div:nth-child(2) {
           font-size: 5rem;
           color: #000;
-          text-shadow: 1px 1px 8px #fff;
+          text-shadow: 1px 1px 4px #fff;
         }
 
         .scroll-indicator {
@@ -119,6 +128,18 @@
             #indicator {
               stroke-dasharray: 252.327px, 262.327px;
             }
+          }
+
+          .svg-md {
+            width: 90px;
+          }
+
+          .svg-sm {
+            width: 85px;
+          }
+
+          .svg-xs {
+            width: 70px;
           }
 
           .vertical-line {
@@ -180,10 +201,9 @@
     }
 
     .action-wrapper {
+      margin-top: 566px;
       float: right;
       overflow: hidden;
-      position: relative;
-      top: 50%;
 
       .name {
         width: 675px;

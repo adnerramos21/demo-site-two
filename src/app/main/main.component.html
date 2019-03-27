@@ -1,5 +1,6 @@
 <div class="wrapper" (scroll)="scrollHandler($event)">
-  <img class="bg-image" src="../assets/image/landing-background.jpg" alt="landing-background">
+  
+  <div class="bg-image" [ngClass.lt-md]="{'bg-image-lt-md': true}"></div>
 
   <div class="content">
 
@@ -33,13 +34,14 @@
         <div>PRODUCTIONS</div>
 
         <div class="scroll-indicator">
-          <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 100 100">
-            <circle id="indicator" stroke="#fff" stroke-width=".7" stroke-dashoffset="0" fill="none" cx="50" cy="50" r="40" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" [ngClass.md]="{'svg-md': true}"
+            [ngClass.sm]="{'svg-sm': true}" [ngClass.xs]="{'svg-xs': true}">
+            <circle #indicator id="indicator" stroke="#fff" stroke-width=".7" stroke-dashoffset="0" fill="none" cx="50" cy="50" r="40" />
             <g id="scroll-text" data-name="scroll-text">
               <text x="20" y="55" fill="#fff">SCROLL</text>
             </g>
           </svg>
-          <div class="vertical-line"> </div>
+          <div class="vertical-line" #verticalLine> </div>
         </div>
       </div>
 
@@ -53,11 +55,11 @@
 
     <div class="action-wrapper">
       <div class="name">
-        <div class="first">Zach</div>
-        <div class="last">Prestige</div>
+        <div class="first" #first>Zach</div>
+        <div class="last" #last>Prestige</div>
       </div>
 
-      <div class="action-button">
+      <div class="action-button" #actionButton>
         <button [routerLink]="[ '/presentation' ]" routerLinkActive="active">
           <div class="top-side-line">
             <div class="bottom-line">
