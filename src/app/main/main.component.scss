@@ -33,6 +33,10 @@
     .top {
       .left-side {
         text-transform: uppercase;
+
+        .logo {
+          display: inline-block
+        }
       }
 
       .right-side {
