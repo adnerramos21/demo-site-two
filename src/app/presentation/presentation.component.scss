@@ -1,7 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:700");
+
 .wrapper {
   font-family: "Open Sans", Helvetica, sans-serif;
   height: 100%;
   position: relative;
-  color: #fff;
   overflow-x: hidden;
+  background-color: #000;
+
+  .content {
+    margin: 3% 4% 0;
+
+    & > div {
+      margin-bottom: 25px;
+    }
+  }
 }
