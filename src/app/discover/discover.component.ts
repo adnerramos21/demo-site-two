@@ -117,7 +117,9 @@ export class DiscoverComponent implements OnInit {
   loadTabletContent(): any {
     const selectedImage = this.selectedImage.nativeElement as HTMLElement,
       backButton = this.backButton.nativeElement as HTMLElement,
-      photoSlideItem = this.slide.map(val => val.nativeElement);
+      photoSlideItem = this.slide.map(val => val.nativeElement),
+      currentRect = photoSlideItem[this.selectedPictId].getBoundingClientRect(),
+      newRect = selectedImage.getBoundingClientRect();
 
     selectedImage.style.height = '376px';
 
@@ -194,7 +196,6 @@ export class DiscoverComponent implements OnInit {
       }
     });
 
-
     infoWrapper.classList.replace('remove-lines', 'animate-lines');
   }
 
@@ -214,7 +215,10 @@ export class DiscoverComponent implements OnInit {
       currentElementMarginLeft = +photoElement.marginLeft.slice(0, -2),
       currentElementMarginRight = +photoElement.marginRight.slice(0, -2),
       totalWidthPhotoElement = currentElementWidth + currentElementMarginLeft + currentElementMarginRight,
-      totalPhotoElementDivided = totalWidthPhotoElement / this.photoSlideItems.length;
+      totalPhotoElementDivided = totalWidthPhotoElement / this.photoSlideItems.length,
+      photoSlideItem = this.slide.map(val => val.nativeElement as HTMLElement),
+      photoSlideItemWidth = +window.getComputedStyle(photoSlideItem[this.selectedPictId]).width.slice(0, -2),
+      photoSlideItemMarginRight = +window.getComputedStyle(photoSlideItem[this.selectedPictId]).marginRight.slice(0, -2);
 
     let spaceToLeft = 0, spaceToRight = 0, counterLeft = 0, counterRight = 0;
 
@@ -229,13 +233,12 @@ export class DiscoverComponent implements OnInit {
       }
     });
 
-    // totalPhotoElementDivided
 
-    // 363px is 343px photo-item width + 20px padding-right
-    spaceToLeft = 363 * counterLeft;
+    // 343px photo-item width + 20px photo-item margin-right is 363px
+    spaceToLeft = (photoSlideItemWidth + photoSlideItemMarginRight) * counterLeft;
 
-    // 20px due to padding left
-    spaceToRight = (363 + 20) * counterRight;
+    // 20px twice due to margin left
+    spaceToRight = (photoSlideItemWidth + (photoSlideItemMarginRight * 2)) * counterRight;
 
     return { spaceToLeft, spaceToRight };
   }

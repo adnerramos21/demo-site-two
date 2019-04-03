@@ -51,7 +51,7 @@
     <!-- [@routerTransition]="getState(outletRef)" -->
     <div class="selected-image-container" fxLayout="row" fxLayout.sm="column-reverse" fxLayoutGap="20px">
 
-      <div fxFlex="50%" fxFlex.sm="100%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
+      <div fxFlex="50%" fxFlex.sm="100%" fxFlex.xs="100%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
         <span>
           <div #backButton class="back-button" fxLayout="row">
 
@@ -118,7 +118,7 @@
         </div>
       </div>
 
-      <div fxFlex="50%" fxFlex.sm="100%" class="content-right">
+      <div fxFlex="50%" fxFlex.sm="100%" fxFlex.xs="100%" class="content-right">
         <div #selectedImage id="selected-image"></div>
       </div>
 
