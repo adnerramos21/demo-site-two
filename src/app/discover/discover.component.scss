@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
-$asset-image-path: "assets/image";
+// $asset-image-path: "assets/image";
 
 .discover-wrapper {
   font-family: "Open Sans", Helvetica, sans-serif;
@@ -71,7 +71,7 @@ $asset-image-path: "assets/image";
       top: 18%;
 
       .content-left {
-        margin-left: 4%;
+        // margin-left: 4%;
 
         .back-button {
           font-size: 0.91rem;
@@ -80,6 +80,7 @@ $asset-image-path: "assets/image";
           .back-arrow {
             cursor: pointer;
             text-transform: uppercase;
+            z-index: 1;
           }
         }
 
@@ -295,18 +296,23 @@ $asset-image-path: "assets/image";
   //   }
   // }
 
+
   .photo-slide {
     overflow-y: hidden;
+    overflow-x: auto;
     max-width: 100%;
-    // margin: auto 10px;
     max-height: 70%;
+    display: block;
+    position: relative;
   }
-
+  
   div.photo-slide-item {
     height: 510px;
     width: 343px;
     position: relative;
     margin-top: 75px;
+    // margin-right: 20px;
+    display: inline-block;
 
     img {
       height: inherit;
@@ -315,10 +321,9 @@ $asset-image-path: "assets/image";
 
     .label {
       position: absolute;
-      bottom: 17%;
+      bottom: 2%;
       left: 0;
       height: 15%;
-      width: 60%;
       display: flex;
       align-items: center;
 

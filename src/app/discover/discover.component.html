@@ -49,12 +49,13 @@
 
 
     <!-- [@routerTransition]="getState(outletRef)" -->
-    <div class="selected-image-container" fxLayout="row" fxLayoutGap="20px">
-      <div fxFlex="50%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
+    <div class="selected-image-container" fxLayout="row" fxLayout.sm="column-reverse" fxLayoutGap="20px">
+
+      <div fxFlex="50%" fxFlex.sm="100%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
         <span>
-          <div class="back-button" (click)="backToProject()" fxLayout="row">
-            <!-- <i class="fas fa-long-arrow-alt-left"></i>  -->
-            <span class="back-arrow">
+          <div #backButton class="back-button" fxLayout="row">
+
+            <span class="back-arrow" (click)="backToProject()">
               <svg xmlns="http://www.w3.org/2000/svg" width="75" height="25.476" viewBox="0 0 116.738 25.476">
                 <g id="back-arrow" data-name="back-arrow" transform="translate(-370.762 -333.0)">
                   <line id="Line_1" data-name="Line 1" x2="112" transform="translate(373.5 341.5)" fill="none" stroke="#fff"
@@ -68,9 +69,11 @@
             </span>
 
             &nbsp;&nbsp;
-            <span class="back-arrow-text">
+
+            <span class="back-arrow-text" (click)="backToProject()">
               Back to Projects
             </span>
+
           </div>
         </span>
 
@@ -82,7 +85,7 @@
               {{subtext2}}
             </p>
           </div>
-          <div class="info-wrapper remove-lines" id="info-wrapper">
+          <div #infoWrapper class="info-wrapper remove-lines" id="info-wrapper">
 
             <div class="info">
               <div class="top-side-line">
@@ -114,17 +117,18 @@
           </div>
         </div>
       </div>
-      <div fxFlex="50%" class="content-right">
-        <div id="selected-image"></div>
+
+      <div fxFlex="50%" fxFlex.sm="100%" class="content-right">
+        <div #selectedImage id="selected-image"></div>
       </div>
+
     </div>
 
 
-    <div fxLayout="row" id="photo-slide" class="photo-slide" fxLayoutGap="20px" fxLayoutAlign="space-around none"
-      [@photoSlideAnimation]="isVisible ? 'discover' : 'specific'">
+    <div #photoSlide id="photo-slide" class="photo-slide" fxLayout="row" fxLayoutGap="20px" [@photoSlideAnimation]="isVisible ? 'discover' : 'specific'">
 
       <div *ngFor="let photoItem of photoItems; let ind = index" class="photo-slide-item" [ngClass]="{'selected': photoItem.selected}"
-        (click)="selectedPicture(ind, photoItem)" [tabindex]="ind">
+        (click)="selectedPicture(ind, photoItem)" [tabindex]="ind" #slide>
         <img [src]="photoItem.source" [alt]="photoItem.name">
         <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
           <span>

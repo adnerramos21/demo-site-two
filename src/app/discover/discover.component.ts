@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { routerTransition, showHide, photoSlideAnimation, showHideHeader } from './discover.component.animation';
-import { TweenLite, TweenMax, Power3, Power4 } from 'gsap/TweenMax';
+import { TweenLite, Power4 } from 'gsap/TweenMax';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 
 @Component({
@@ -17,8 +19,17 @@ import { TweenLite, TweenMax, Power3, Power4 } from 'gsap/TweenMax';
 })
 export class DiscoverComponent implements OnInit {
 
+  @ViewChild('photoSlide') photoSlide: ElementRef;
+  @ViewChild('infoWrapper') infoWrapper: ElementRef;
+  @ViewChild('selectedImage') selectedImage: ElementRef;
+  @ViewChild('backButton') backButton: ElementRef;
+  @ViewChildren('slide') slide: QueryList<any>;
+
+  watcher: Subscription;
+  activeMediaQuery = '';
   isVisible: boolean;
   photoSlideItems: Array<any> = [{ position: String, index: Number }];
+  selectedPictId = -1;
 
   detailTitle = '';
   subtext1 = '';
@@ -83,7 +94,16 @@ export class DiscoverComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) { console.clear(); }
+  constructor(private router: Router, private mediaObserver: MediaObserver) {
+    console.clear();
+
+    this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
+      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+      if (change.mqAlias === 'sm') {
+        this.loadTabletContent();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.isVisible = true;
@@ -94,13 +114,35 @@ export class DiscoverComponent implements OnInit {
     return outletRef && outletRef.activatedRouteData && outletRef.activatedRouteData['animation'];
   }
 
+  loadTabletContent(): any {
+    const selectedImage = this.selectedImage.nativeElement as HTMLElement,
+      backButton = this.backButton.nativeElement as HTMLElement,
+      photoSlideItem = this.slide.map(val => val.nativeElement);
+
+    selectedImage.style.height = '376px';
+
+    TweenLite.to(photoSlideItem[this.selectedPictId], 1, {
+      x: -726,
+      y: 38,
+      marginTop: 0,
+      ease: Power4.easeOut,
+    });
+
+    TweenLite.to(backButton, 1, {
+      opacity: 0
+    });
+  }
+
   selectedPicture(id: number, itemObj: object): void {
-    const selectedPictId = id,
-      photoSlideItem = document.querySelectorAll('#photo-slide > .photo-slide-item'),
-      selectedImage = document.getElementById('selected-image'),
-      photoSlide = document.querySelector('#photo-slide'),
-      infoWrapper = document.querySelector('#info-wrapper'),
-      currentRect = photoSlideItem[selectedPictId].getBoundingClientRect(),
+    // disable click event after being clicked.
+
+    this.selectedPictId = id;
+
+    const photoSlideItem = this.slide.map(val => val.nativeElement),
+      selectedImage = this.selectedImage.nativeElement,
+      photoSlide = this.photoSlide.nativeElement,
+      infoWrapper = this.infoWrapper.nativeElement,
+      currentRect = photoSlideItem[this.selectedPictId].getBoundingClientRect(),
       newRect = selectedImage.getBoundingClientRect();
 
     let translationSpaceXAxisObj;
@@ -112,9 +154,9 @@ export class DiscoverComponent implements OnInit {
     this.setDetailInfo(itemObj);
 
 
-    TweenLite.to(photoSlideItem[selectedPictId], 1, {
+    TweenLite.to(photoSlideItem[this.selectedPictId], 1, {
       x: newRect.left - currentRect.left,
-      y: 10,
+      y: 31,
       marginTop: 0,
       ease: Power4.easeOut,
     });
@@ -122,16 +164,16 @@ export class DiscoverComponent implements OnInit {
 
     for (let index = 0; index < photoSlideItem.length; index++) {
 
-      if (index < selectedPictId) {
+      if (index < this.selectedPictId) {
         // move left items to the far left
         this.photoSlideItems.push({ position: 'left', index: index });
 
-      } else if (index === selectedPictId) {
+      } else if (index === this.selectedPictId) {
         // target acquired at this index
         this.photoItems[index].selected = true;
         this.photoSlideItems.push({ position: 'selected', index: index });
 
-      } else if (index > selectedPictId) {
+      } else if (index > this.selectedPictId) {
         // move right items to the far right
         this.photoSlideItems.push({ position: 'right', index: index });
       }
@@ -154,7 +196,6 @@ export class DiscoverComponent implements OnInit {
 
 
     infoWrapper.classList.replace('remove-lines', 'animate-lines');
-
   }
 
   setDetailInfo(obj: object) {
@@ -188,9 +229,13 @@ export class DiscoverComponent implements OnInit {
       }
     });
 
+    // totalPhotoElementDivided
 
-    spaceToLeft = totalPhotoElementDivided * counterLeft;
-    spaceToRight = totalPhotoElementDivided * counterRight;
+    // 363px is 343px photo-item width + 20px padding-right
+    spaceToLeft = 363 * counterLeft;
+
+    // 20px due to padding left
+    spaceToRight = (363 + 20) * counterRight;
 
     return { spaceToLeft, spaceToRight };
   }
@@ -213,7 +258,7 @@ export class DiscoverComponent implements OnInit {
 
   backToProject(): void {
     const photoSlideItemSelected = document.querySelector('#photo-slide > .photo-slide-item.selected'),
-      infoWrapper = document.querySelector('#info-wrapper');
+      infoWrapper = this.infoWrapper.nativeElement;
 
     this.isVisible = true;
     infoWrapper.classList.replace('animate-lines', 'remove-lines');
