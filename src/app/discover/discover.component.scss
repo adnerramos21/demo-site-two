@@ -27,7 +27,7 @@
 
         .logo {
           cursor: pointer;
-          display: inline-block
+          display: inline-block;
         }
       }
 
@@ -242,21 +242,22 @@
         }
       }
 
-      //   .content-right {
-      //     #selected-image {
-      //       // width: 504px;
-      //       // height: 343px;
+      .content-right {
+        #selected-image {
+          margin-top: 0;
+          //       // width: 504px;
+          //       // height: 343px;
 
-      //       .photo-slide {
-      //         position: relative;
-      //       }
+          //       .photo-slide {
+          //         position: relative;
+          //       }
 
-      //       img {
-      //         // width: 100%;
-      //         // height: 100%;
-      //       }
-      //     }
-      //   }
+          //       img {
+          //         // width: 100%;
+          //         // height: 100%;
+          //       }
+        }
+      }
     }
   }
 
@@ -296,7 +297,6 @@
   //   }
   // }
 
-
   .photo-slide {
     overflow-y: hidden;
     overflow-x: auto;
@@ -305,7 +305,7 @@
     display: block;
     position: relative;
   }
-  
+
   div.photo-slide-item {
     height: 510px;
     width: 343px;

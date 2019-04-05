@@ -52,8 +52,8 @@
     <div class="selected-image-container" fxLayout="row" fxLayout.sm="column-reverse" fxLayoutGap="20px">
 
       <div fxFlex="50%" fxFlex.sm="100%" fxFlex.xs="100%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
-        <span>
-          <div #backButton class="back-button" fxLayout="row">
+        <span fxHide.sm>
+          <div  #backButton class="back-button" fxLayout="row">
 
             <span class="back-arrow" (click)="backToProject()">
               <svg xmlns="http://www.w3.org/2000/svg" width="75" height="25.476" viewBox="0 0 116.738 25.476">
@@ -118,7 +118,8 @@
         </div>
       </div>
 
-      <div fxFlex="50%" fxFlex.sm="100%" fxFlex.xs="100%" class="content-right">
+      <div fxFlexAlign="" fxFlex="50%" fxFlex.sm="100%" fxFlex.xs="100%" class="content-right" 
+      [ngStyle.sm]="{'height': '376px'}">
         <div #selectedImage id="selected-image"></div>
       </div>
 

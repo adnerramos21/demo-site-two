@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, Renderer2 } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { routerTransition, showHide, photoSlideAnimation, showHideHeader } from './discover.component.animation';
 import { TweenLite, Power4 } from 'gsap/TweenMax';
@@ -94,13 +94,16 @@ export class DiscoverComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router, private mediaObserver: MediaObserver) {
+  constructor(private router: Router, private mediaObserver: MediaObserver, private renderer: Renderer2) {
     console.clear();
 
     this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
       if (change.mqAlias === 'sm') {
-        this.loadTabletContent();
+        // this.loadTabletPortraitMode();
+      }
+      if (change.mqAlias === 'md') {
+        // this.loadTabletLandscapeMode();
       }
     });
   }
@@ -114,38 +117,72 @@ export class DiscoverComponent implements OnInit {
     return outletRef && outletRef.activatedRouteData && outletRef.activatedRouteData['animation'];
   }
 
-  loadTabletContent(): any {
-    const selectedImage = this.selectedImage.nativeElement as HTMLElement,
-      backButton = this.backButton.nativeElement as HTMLElement,
-      photoSlideItem = this.slide.map(val => val.nativeElement),
-      currentRect = photoSlideItem[this.selectedPictId].getBoundingClientRect(),
-      newRect = selectedImage.getBoundingClientRect();
+  loadTabletLandscapeMode(): any {
+    if (this.selectedPictId !== -1) {
+      const photoSlideItem = this.slide.map(val => val.nativeElement),
+        selectedImage = this.selectedImage.nativeElement as HTMLElement,
+        currentRect = photoSlideItem[this.selectedPictId].getBoundingClientRect() as DOMRect,
+        newRect = selectedImage.getBoundingClientRect() as DOMRect;
 
-    selectedImage.style.height = '376px';
+      console.log(
+        'Portrait Mode',
+        'currentRect', currentRect,
+        'newRect', newRect,
+        'Difference',
+        newRect.left - currentRect.left);
 
-    TweenLite.to(photoSlideItem[this.selectedPictId], 1, {
-      x: -726,
-      y: 38,
-      marginTop: 0,
-      ease: Power4.easeOut,
-    });
-
-    TweenLite.to(backButton, 1, {
-      opacity: 0
-    });
+      TweenLite.to(photoSlideItem[this.selectedPictId], 1, {
+        x: 343,
+        y: 30,
+        marginTop: 0,
+        ease: Power4.easeOut,
+      });
+    }
   }
 
-  selectedPicture(id: number, itemObj: object): void {
+  loadTabletPortraitMode(): any {
+    // const
+    //   backButton = this.backButton.nativeElement as HTMLElement,
+
+    // selectedImage.style.height = '376px';
+
+    if (this.selectedPictId !== -1) {
+      const photoSlideItem = this.slide.map(val => val.nativeElement),
+        selectedImage = this.selectedImage.nativeElement as HTMLElement,
+        currentRect = photoSlideItem[this.selectedPictId].getBoundingClientRect() as DOMRect,
+        newRect = selectedImage.getBoundingClientRect() as DOMRect;
+
+      console.log(
+        'Portrait Mode',
+        'currentRect', currentRect,
+        'newRect', newRect,
+        'Difference',
+        newRect.left - currentRect.left);
+
+
+      TweenLite.to(photoSlideItem[this.selectedPictId], 1, {
+        x: 0,
+        y: 30,
+        marginTop: 0,
+        ease: Power4.easeOut,
+      });
+    }
+
+  }
+
+  selectedPicture(id: number, itemObj: object, node?: object): void {
     // disable click event after being clicked.
 
     this.selectedPictId = id;
 
-    const photoSlideItem = this.slide.map(val => val.nativeElement),
-      selectedImage = this.selectedImage.nativeElement,
+    const photoSlideItem = this.slide.map(val => val.nativeElement as HTMLElement),
+      selectedImage = this.selectedImage.nativeElement as HTMLElement,
       photoSlide = this.photoSlide.nativeElement,
       infoWrapper = this.infoWrapper.nativeElement,
-      currentRect = photoSlideItem[this.selectedPictId].getBoundingClientRect(),
-      newRect = selectedImage.getBoundingClientRect();
+      currentRect = photoSlideItem[this.selectedPictId].getBoundingClientRect() as DOMRect,
+      newRect = selectedImage.getBoundingClientRect() as DOMRect,
+      placeholderDiv = this.renderer.createElement('div') as HTMLDivElement,
+      selectedNode = photoSlideItem[this.selectedPictId];
 
     let translationSpaceXAxisObj;
 
@@ -155,12 +192,25 @@ export class DiscoverComponent implements OnInit {
 
     this.setDetailInfo(itemObj);
 
+    placeholderDiv.id = 'placeholder';
+    placeholderDiv.style.opacity = '0';
+    placeholderDiv.style.minWidth = currentRect.width + 'px';
+    placeholderDiv.classList.add('photo-slide-item');
 
-    TweenLite.to(photoSlideItem[this.selectedPictId], 1, {
-      x: newRect.left - currentRect.left,
-      y: 31,
-      marginTop: 0,
+    // Set placeholder to hold selectedImage position
+    photoSlide.replaceChild(placeholderDiv, selectedNode);
+
+    selectedImage.appendChild(photoSlideItem[this.selectedPictId]);
+
+
+    TweenLite.from(photoSlideItem[this.selectedPictId], 1, {
+      x: currentRect.left - newRect.left,
+      y: currentRect.top - newRect.top,
       ease: Power4.easeOut,
+    });
+
+    TweenLite.set(photoSlideItem[this.selectedPictId], {
+      marginTop: 0,
     });
 
 
@@ -209,18 +259,21 @@ export class DiscoverComponent implements OnInit {
     this.shotLocationIn = obj['shotLocationIn'];
   }
 
-  calculatePhotoItemTranslation(photoSlide: Element): Object {
+  calculatePhotoItemTranslation(photoSlide: HTMLElement): Object {
     const photoElement = window.getComputedStyle(photoSlide),
-      currentElementWidth = +photoElement.width.slice(0, -2),
+      // You need the scrollbar width, not the visible width
+      // currentElementWidth = +photoElement.width.slice(0, -2),
       currentElementMarginLeft = +photoElement.marginLeft.slice(0, -2),
       currentElementMarginRight = +photoElement.marginRight.slice(0, -2),
-      totalWidthPhotoElement = currentElementWidth + currentElementMarginLeft + currentElementMarginRight,
-      totalPhotoElementDivided = totalWidthPhotoElement / this.photoSlideItems.length,
+      // totalWidthPhotoElement = currentElementWidth + currentElementMarginLeft + currentElementMarginRight,
+      // totalPhotoElementDivided = totalWidthPhotoElement / this.photoSlideItems.length,
       photoSlideItem = this.slide.map(val => val.nativeElement as HTMLElement),
       photoSlideItemWidth = +window.getComputedStyle(photoSlideItem[this.selectedPictId]).width.slice(0, -2),
-      photoSlideItemMarginRight = +window.getComputedStyle(photoSlideItem[this.selectedPictId]).marginRight.slice(0, -2);
+      photoSlideItemMarginRight = +window.getComputedStyle(photoSlideItem[this.selectedPictId]).marginRight.slice(0, -2),
+      currentElementWidth = (photoSlideItemWidth + photoSlideItemMarginRight) * this.photoSlideItems.length,
+      computedElementWidth = +photoElement.width.slice(0, -2);
 
-    let spaceToLeft = 0, spaceToRight = 0, counterLeft = 0, counterRight = 0;
+    let spaceToLeft = 0, spaceToRight = 0, counterLeft = 0, counterRight = 0, actualWidth = 0;
 
     this.photoSlideItems.map(val => {
       if (val) {
@@ -233,13 +286,17 @@ export class DiscoverComponent implements OnInit {
       }
     });
 
+    console.log('photo-slide width', currentElementWidth, computedElementWidth);
+
+    actualWidth = currentElementWidth > computedElementWidth ? currentElementWidth : computedElementWidth;
 
     // 343px photo-item width + 20px photo-item margin-right is 363px
     spaceToLeft = (photoSlideItemWidth + photoSlideItemMarginRight) * counterLeft;
 
-    // 20px twice due to margin left
-    spaceToRight = (photoSlideItemWidth + (photoSlideItemMarginRight * 2)) * counterRight;
+    spaceToRight = currentElementWidth - spaceToLeft - (photoSlideItemWidth + photoSlideItemMarginRight);
 
+
+    console.log('spaceToLeft', spaceToLeft, 'spaceToRight', spaceToRight);
     return { spaceToLeft, spaceToRight };
   }
 
@@ -260,17 +317,23 @@ export class DiscoverComponent implements OnInit {
   }
 
   backToProject(): void {
-    const photoSlideItemSelected = document.querySelector('#photo-slide > .photo-slide-item.selected'),
-      infoWrapper = this.infoWrapper.nativeElement;
+    const photoSlideItemSelected = document.querySelector('#selected-image > .photo-slide-item.selected') as HTMLElement,
+      infoWrapper = this.infoWrapper.nativeElement as HTMLElement,
+      photoSlide = this.photoSlide.nativeElement as HTMLElement,
+      currentRect = photoSlideItemSelected.getBoundingClientRect() as DOMRect,
+      newRect = photoSlide.getBoundingClientRect() as DOMRect,
+      placeholderDiv = document.querySelector('#photo-slide > #placeholder');
 
     this.isVisible = true;
     infoWrapper.classList.replace('animate-lines', 'remove-lines');
     // this.router.navigate(['/discover']);
 
-    TweenLite.to(photoSlideItemSelected, .8, {
-      x: 0,
-      y: 0,
-      marginTop: '75px',
+    photoSlide.replaceChild(photoSlideItemSelected, placeholderDiv);
+    // photoSlide.appendChild(photoSlideItemSelected);
+
+    TweenLite.from(photoSlideItemSelected, .8, {
+      x: currentRect.left - newRect.left,
+      y: currentRect.top - newRect.top,
       ease: Power4.easeOut
     });
 
