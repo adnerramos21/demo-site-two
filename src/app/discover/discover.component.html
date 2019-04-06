@@ -6,9 +6,11 @@
       <div fxFlex="33.3%" class="left-side">
         <span [routerLink]="[ '/' ]" class="logo">
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="67" height="50" viewBox="0 0 165 123" style="font-weight: 700;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="67" height="50" viewBox="0 0 165 123"
+            style="font-weight: 700;">
             <g transform="translate(-477 -543)">
-              <text id="LA" transform="translate(555 649)" fill="#fff" font-size="50" font-family="Open Sans, Helvetica, sans-serif">
+              <text id="LA" transform="translate(555 649)" fill="#fff" font-size="50"
+                font-family="Open Sans, Helvetica, sans-serif">
                 <tspan x="0" y="0">LA</tspan>
               </text>
               <g id="LA-Rectangle" transform="translate(528 591)" fill="none" stroke="#fff" stroke-width="2">
@@ -19,7 +21,8 @@
                 <rect width="109" height="75" stroke="none" />
                 <rect x="1" y="1" width="109" height="73" fill="none" />
               </g>
-              <text id="LO" transform="translate(499 601)" font-size="50" font-family="Open Sans, Helvetica, sans-serif">
+              <text id="LO" transform="translate(499 601)" font-size="50"
+                font-family="Open Sans, Helvetica, sans-serif">
                 <tspan x="0" y="0">LO</tspan>
               </text>
             </g>
@@ -29,37 +32,43 @@
       </div>
 
       <div fxFlex="33.3%" class="center title">
-        <span [@showHide]="isVisible ? 'show' : 'hide'">
+        <span [@showHide]="isVisible ? 'show' : 'hide'" fxHide.lt-md>
           Projects
         </span>
       </div>
 
       <div fxFlex="33.3%" class="right-side">
-        <span class="discover-text">
+        <span class="discover-text" fxHide.lt-md>
           Discover
         </span>
         <span class="menu-icon-container">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-          <div class="bar3"></div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="13" viewBox="0 0 25 13">
+            <g transform="translate(-1337.5 -539)">
+              <line x2="25" transform="translate(1337.5 539.5)" fill="none" stroke="#fff" stroke-width="1.5" />
+              <line x2="13" transform="translate(1349.5 545.5)" fill="none" stroke="#fff" stroke-width="1.5" />
+              <line x2="25" transform="translate(1337.5 551.5)" fill="none" stroke="#fff" stroke-width="1.5" />
+            </g>
+          </svg>
         </span>
       </div>
     </div>
 
 
-
     <!-- [@routerTransition]="getState(outletRef)" -->
-    <div class="selected-image-container" fxLayout="row" fxLayout.sm="column-reverse" fxLayoutGap="20px">
+    <div #selectedImageContainer class="selected-image-container" fxLayout="row" fxLayout.lt-md="column-reverse"
+      fxLayoutGap="20px">
 
-      <div fxFlex="50%" fxFlex.sm="100%" fxFlex.xs="100%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
-        <span fxHide.sm>
-          <div  #backButton class="back-button" fxLayout="row">
+      <div fxFlex="50%" fxFlex.lt-md="100%" class="content-left" [@showHide]="!isVisible ? 'show' : 'hide'">
+
+        <span [ngStyle.lt-md]="{'position': 'absolute', 'top.px': -50}">
+
+          <div #backButton class="back-button" fxLayout="row">
 
             <span class="back-arrow" (click)="backToProject()">
               <svg xmlns="http://www.w3.org/2000/svg" width="75" height="25.476" viewBox="0 0 116.738 25.476">
                 <g id="back-arrow" data-name="back-arrow" transform="translate(-370.762 -333.0)">
-                  <line id="Line_1" data-name="Line 1" x2="112" transform="translate(373.5 341.5)" fill="none" stroke="#fff"
-                    stroke-linecap="round" stroke-width="3" />
+                  <line id="Line_1" data-name="Line 1" x2="112" transform="translate(373.5 341.5)" fill="none"
+                    stroke="#fff" stroke-linecap="round" stroke-width="3" />
                   <line id="Line_2" data-name="Line 2" x1="17" y2="10" transform="translate(373.5 331.5)" fill="none"
                     stroke="#fff" stroke-linecap="round" stroke-width="3" />
                   <line id="Line_3" data-name="Line 3" x1="17" y1="10" transform="translate(373.5 341.5)" fill="none"
@@ -77,7 +86,7 @@
           </div>
         </span>
 
-        <div class="detail-info">
+        <div class="detail-info" [ngStyle.lt-md]="{'marginTop': 0, 'marginBottom.px': 20}">
           <div class="detail-title"> {{detailTitle}}</div>
           <div class="detail-subtext">
             <p>
@@ -85,26 +94,26 @@
               {{subtext2}}
             </p>
           </div>
-          <div #infoWrapper class="info-wrapper remove-lines" id="info-wrapper">
+          <div #infoWrapper class="info-wrapper remove-lines" id="info-wrapper" [ngStyle.lt-md]="{'width.%': 90}">
 
             <div class="info">
               <div class="top-side-line">
                 <div class="bottom-line">
-                  <span>
+                  <span [ngStyle.lt-md]="{'padding.px': 15}">
 
-                    <div class="info-item" fxLayout="row">
+                    <div class="info-item" fxLayout="row" fxLayoutGap.xs="5px">
                       <div fxFlex="50%">Services</div>
                       <div fxFlex="50%"> {{services}}</div>
                     </div>
-                    <div class="info-item" fxLayout="row">
+                    <div class="info-item" fxLayout="row" fxLayoutGap.xs="5px">
                       <div fxFlex="50%">Directed By</div>
                       <div fxFlex="50%"> {{directedBy}} </div>
                     </div>
-                    <div class="info-item" fxLayout="row">
+                    <div class="info-item" fxLayout="row" fxLayoutGap.xs="5px">
                       <div fxFlex="50%">Art Direction By</div>
                       <div fxFlex="50%">{{artDirectionBy}}</div>
                     </div>
-                    <div class="info-item" fxLayout="row">
+                    <div class="info-item" fxLayout="row" fxLayoutGap.xs="5px">
                       <div fxFlex="50%">Shot on Location in</div>
                       <div fxFlex="50%">{{shotLocationIn}}</div>
                     </div>
@@ -118,46 +127,36 @@
         </div>
       </div>
 
-      <div fxFlexAlign="" fxFlex="50%" fxFlex.sm="100%" fxFlex.xs="100%" class="content-right" 
-      [ngStyle.sm]="{'height': '376px'}">
+      <div fxFlex="50%" fxFlex.lt-md="100%" class="content-right">
         <div #selectedImage id="selected-image"></div>
       </div>
 
     </div>
 
 
-    <div #photoSlide id="photo-slide" class="photo-slide" fxLayout="row" fxLayoutGap="20px" [@photoSlideAnimation]="isVisible ? 'discover' : 'specific'">
+    <div #photoSlide id="photo-slide" class="photo-slide" fxLayout="row" fxLayoutGap="20px"
+      [@photoSlideAnimation]="isVisible ? 'discover' : 'specific'">
 
-      <div *ngFor="let photoItem of photoItems; let ind = index" class="photo-slide-item" [ngClass]="{'selected': photoItem.selected}"
-        (click)="selectedPicture(ind, photoItem)" [tabindex]="ind" #slide>
+      <div *ngFor="let photoItem of photoItems; let ind = index" class="photo-slide-item"
+        [ngClass]="{'selected': photoItem.selected}" (click)="selectedPicture(ind, photoItem)" [tabindex]="ind" #slide>
         <img [src]="photoItem.source" [alt]="photoItem.name">
         <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
           <span>
 
             <svg xmlns="http://www.w3.org/2000/svg" width="301.864" height="51" viewBox="0 0 301.378 51">
-              <path d="M301.13,279.366v50H565.019l36.111-25-36.111-25Z" transform="translate(-300.63 -278.866)" fill="rgba(240, 255, 255, .8)"
-                stroke="#707070" stroke-width="0" />
-              <text x="10" y="33" fill="#000"> {{photoItem.label}} </text>
+              <defs>
+                <mask [id]="photoItem.name" x="0" y="0" width="100%" height="100%">
+                  <path d="M301.13,279.366v50H565.019l36.111-25-36.111-25Z" transform="translate(-300.63 -278.866)"
+                    fill="rgba(240, 255, 255, 1)" stroke="#707070" stroke-width="0" />
+                  <text id="text" x="10" y="33" fill="#000"> {{photoItem.label}} </text>
+                </mask>
+              </defs>
+              <rect id="rect" x="0" y="0" width="100%" height="100%" fill='#fff' [ngStyle]="{'mask': photoItem.mask}" />
             </svg>
 
           </span>
         </div>
       </div>
-
-      <!-- style="background: 'url(https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg) no-repeat 0 0 / cover'" -->
-
-      <!-- class="clip-text clip-text_fifteen clip-text--no-textzone" -->
-      <!-- <div >
-        <img src="../../assets/image/picture2.jpg" alt="picture2"> 
-         <div class="label">
-          <span>
-
-            TAKAI - SILVER
-
-          </span>
-        </div>
-      </div> -->
-
 
     </div>
 

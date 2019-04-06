@@ -96,11 +96,11 @@ export const showHideHeader = trigger('showHideHeader', [
 export const showHide = trigger('showHide', [
     state('show', style({
         opacity: 1,
-        visibility: 'visible',
+        visibility: 'visible'
     })),
     state('hide', style({
         opacity: 0,
-        visibility: 'hidden',
+        visibility: 'hidden'
     })),
     transition('show <=> hide', [
         animate('.3s')

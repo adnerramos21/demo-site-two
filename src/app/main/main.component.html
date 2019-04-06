@@ -9,9 +9,11 @@
         <div fxLayout="row">
           <span class="logo">
 
-            <svg xmlns="http://www.w3.org/2000/svg" width="67" height="50" viewBox="0 0 165 123" style="font-weight: 700;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="67" height="50" viewBox="0 0 165 123"
+              style="font-weight: 700;">
               <g transform="translate(-477 -543)">
-                <text id="LA" transform="translate(555 649)" fill="#fff" font-size="50" font-family="Open Sans, Helvetica, sans-serif">
+                <text id="LA" transform="translate(555 649)" fill="#fff" font-size="50"
+                  font-family="Open Sans, Helvetica, sans-serif">
                   <tspan x="0" y="0">LA</tspan>
                 </text>
                 <g id="LA-Rectangle" transform="translate(528 591)" fill="none" stroke="#fff" stroke-width="2">
@@ -22,7 +24,8 @@
                   <rect width="109" height="75" stroke="none" />
                   <rect x="1" y="1" width="109" height="73" fill="none" />
                 </g>
-                <text id="LO" transform="translate(499 601)" font-size="50" font-family="Open Sans, Helvetica, sans-serif">
+                <text id="LO" transform="translate(499 601)" font-size="50"
+                  font-family="Open Sans, Helvetica, sans-serif">
                   <tspan x="0" y="0">LO</tspan>
                 </text>
               </g>
@@ -33,14 +36,19 @@
       </div>
 
       <div fxFlex="50%" class="right-side">
-        <div class="discover-text" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" [routerLink]="[ '/discover' ]">
+        <div class="discover-text" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
+          [routerLink]="[ '/discover' ]">
           <div>
             Discover
           </div>
           <div class="menu-icon-container">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="13" viewBox="0 0 25 13">
+              <g transform="translate(-1337.5 -539)">
+                <line x2="25" transform="translate(1337.5 539.5)" fill="none" stroke="#fff" stroke-width="1.5" />
+                <line x2="13" transform="translate(1349.5 545.5)" fill="none" stroke="#fff" stroke-width="1.5" />
+                <line x2="25" transform="translate(1337.5 551.5)" fill="none" stroke="#fff" stroke-width="1.5" />
+              </g>
+            </svg>
           </div>
         </div>
       </div>
@@ -48,13 +56,14 @@
 
 
     <div class="title-wrapper">
-      <div class="title" [ngClass.md]="{'title-md': true}" [ngClass.sm]="{'title-sm': true}" [ngClass.xs]="{'title-xs': true}">
+      <div class="title" [ngClass.md]="{'title-md': true}" [ngClass.sm]="{'title-sm': true}"
+        [ngClass.xs]="{'title-xs': true}">
         <div>LOLA</div>
         <div>PRODUCTIONS</div>
 
         <div class="scroll-indicator">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" [ngClass.md]="{'svg-md': true}"
-            [ngClass.sm]="{'svg-sm': true}" [ngClass.xs]="{'svg-xs': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"
+            [ngClass.md]="{'svg-md': true}" [ngClass.sm]="{'svg-sm': true}" [ngClass.xs]="{'svg-xs': true}">
             <circle #indicator id="indicator" stroke="#fff" stroke-width=".7" stroke-dashoffset="0" fill="none" cx="50"
               cy="50" r="40" />
             <g id="scroll-text" data-name="scroll-text">

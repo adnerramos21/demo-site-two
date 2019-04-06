@@ -23,6 +23,7 @@ export class DiscoverComponent implements OnInit {
   @ViewChild('infoWrapper') infoWrapper: ElementRef;
   @ViewChild('selectedImage') selectedImage: ElementRef;
   @ViewChild('backButton') backButton: ElementRef;
+  @ViewChild('selectedImageContainer') selectedImageContainer: ElementRef;
   @ViewChildren('slide') slide: QueryList<any>;
 
   watcher: Subscription;
@@ -51,7 +52,8 @@ export class DiscoverComponent implements OnInit {
       services: 'Production/Film',
       directedBy: 'Edward Osborne',
       artDirectionBy: 'Christopher Bowl',
-      shotLocationIn: 'Spain'
+      shotLocationIn: 'Spain',
+      mask: 'url(#picture1)'
     },
     {
       name: 'picture2',
@@ -64,7 +66,8 @@ export class DiscoverComponent implements OnInit {
       services: 'Production/Film',
       directedBy: 'Will Shoemaker',
       artDirectionBy: 'Lilly Shoemaker',
-      shotLocationIn: 'Brazil'
+      shotLocationIn: 'Brazil',
+      mask: 'url(#picture2)'
     },
     {
       name: 'picture3',
@@ -77,7 +80,8 @@ export class DiscoverComponent implements OnInit {
       services: 'Production/Film',
       directedBy: 'Justin Crawford',
       artDirectionBy: 'Michael W. Smith',
-      shotLocationIn: 'Greece'
+      shotLocationIn: 'Greece',
+      mask: 'url(#picture3)'
     },
     {
       name: 'picture4',
@@ -90,7 +94,8 @@ export class DiscoverComponent implements OnInit {
       services: 'Production/Film',
       directedBy: 'Frank Cruise',
       artDirectionBy: 'James Watts',
-      shotLocationIn: 'Morocco'
+      shotLocationIn: 'Morocco',
+      mask: 'url(#picture4)'
     }
   ];
 
@@ -98,7 +103,7 @@ export class DiscoverComponent implements OnInit {
     console.clear();
 
     this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
-      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+      this.activeMediaQuery = change.mqAlias;
       if (change.mqAlias === 'sm') {
         // this.loadTabletPortraitMode();
       }
@@ -170,7 +175,7 @@ export class DiscoverComponent implements OnInit {
 
   }
 
-  selectedPicture(id: number, itemObj: object, node?: object): void {
+  selectedPicture(id: number, itemObj: object): void {
     // disable click event after being clicked.
 
     this.selectedPictId = id;
@@ -188,6 +193,16 @@ export class DiscoverComponent implements OnInit {
 
     this.isVisible = false;
     this.photoSlideItems = [];
+
+
+    // console.log(this.activeMediaQuery);
+    // if (this.activeMediaQuery === 'xs' || this.activeMediaQuery === 'sm') {
+      // this.selectedImageContainer.nativeElement.style.top = '25%';
+    // }
+
+    // else if (this.activeMediaQuery === 'lg') {
+    //   this.selectedImageContainer.nativeElement.style.marginTop = '5%';
+    // }
     // this.router.navigate(['/discover', id]);
 
     this.setDetailInfo(itemObj);
@@ -286,17 +301,17 @@ export class DiscoverComponent implements OnInit {
       }
     });
 
-    console.log('photo-slide width', currentElementWidth, computedElementWidth);
 
+    // currentElementWidth = width when horizontal scrollbar is present
+    // computedElementWidth = width when horizontal scrollbar is not present
     actualWidth = currentElementWidth > computedElementWidth ? currentElementWidth : computedElementWidth;
 
     // 343px photo-item width + 20px photo-item margin-right is 363px
     spaceToLeft = (photoSlideItemWidth + photoSlideItemMarginRight) * counterLeft;
 
-    spaceToRight = currentElementWidth - spaceToLeft - (photoSlideItemWidth + photoSlideItemMarginRight);
+    // To the actualWidth substract the spaceToLeft taken and the photoSlideItemWidth to the right with padding
+    spaceToRight = actualWidth - spaceToLeft - (photoSlideItemWidth + photoSlideItemMarginRight);
 
-
-    console.log('spaceToLeft', spaceToLeft, 'spaceToRight', spaceToRight);
     return { spaceToLeft, spaceToRight };
   }
 
@@ -324,12 +339,19 @@ export class DiscoverComponent implements OnInit {
       newRect = photoSlide.getBoundingClientRect() as DOMRect,
       placeholderDiv = document.querySelector('#photo-slide > #placeholder');
 
+
+    // if (this.activeMediaQuery === 'xs' || this.activeMediaQuery === 'sm') {
+      // this.selectedImageContainer.nativeElement.style.top = 0;
+    // }
+
     this.isVisible = true;
+    // this.selectedImageContainer.nativeElement.style.marginTop = 0;
+
+
     infoWrapper.classList.replace('animate-lines', 'remove-lines');
     // this.router.navigate(['/discover']);
 
     photoSlide.replaceChild(photoSlideItemSelected, placeholderDiv);
-    // photoSlide.appendChild(photoSlideItemSelected);
 
     TweenLite.from(photoSlideItemSelected, .8, {
       x: currentRect.left - newRect.left,
@@ -362,5 +384,6 @@ export class DiscoverComponent implements OnInit {
   resetSelected(): void {
     this.photoItems.map(val => val.selected = false);
   }
+
 
 }
