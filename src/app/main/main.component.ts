@@ -18,8 +18,6 @@ export class MainComponent implements OnInit {
   @HostListener('scroll', ['$event'])
   scrollHandler(event) {
 
-    // console.log(event.srcElement.scrollTop);
-
     const scrollPosition = event.srcElement.scrollTop,
       positionLimitForIndicator = 252,
       positionLimitForVerticalLine = 630,

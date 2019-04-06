@@ -102,6 +102,7 @@ export class DiscoverComponent implements OnInit {
   constructor(private router: Router, private mediaObserver: MediaObserver, private renderer: Renderer2) {
     console.clear();
 
+    // TO BE CONTINUED
     this.watcher = mediaObserver.media$.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change.mqAlias;
       if (change.mqAlias === 'sm') {
@@ -194,15 +195,6 @@ export class DiscoverComponent implements OnInit {
     this.isVisible = false;
     this.photoSlideItems = [];
 
-
-    // console.log(this.activeMediaQuery);
-    // if (this.activeMediaQuery === 'xs' || this.activeMediaQuery === 'sm') {
-      // this.selectedImageContainer.nativeElement.style.top = '25%';
-    // }
-
-    // else if (this.activeMediaQuery === 'lg') {
-    //   this.selectedImageContainer.nativeElement.style.marginTop = '5%';
-    // }
     // this.router.navigate(['/discover', id]);
 
     this.setDetailInfo(itemObj);
@@ -276,12 +268,8 @@ export class DiscoverComponent implements OnInit {
 
   calculatePhotoItemTranslation(photoSlide: HTMLElement): Object {
     const photoElement = window.getComputedStyle(photoSlide),
-      // You need the scrollbar width, not the visible width
-      // currentElementWidth = +photoElement.width.slice(0, -2),
       currentElementMarginLeft = +photoElement.marginLeft.slice(0, -2),
       currentElementMarginRight = +photoElement.marginRight.slice(0, -2),
-      // totalWidthPhotoElement = currentElementWidth + currentElementMarginLeft + currentElementMarginRight,
-      // totalPhotoElementDivided = totalWidthPhotoElement / this.photoSlideItems.length,
       photoSlideItem = this.slide.map(val => val.nativeElement as HTMLElement),
       photoSlideItemWidth = +window.getComputedStyle(photoSlideItem[this.selectedPictId]).width.slice(0, -2),
       photoSlideItemMarginRight = +window.getComputedStyle(photoSlideItem[this.selectedPictId]).marginRight.slice(0, -2),
@@ -339,16 +327,10 @@ export class DiscoverComponent implements OnInit {
       newRect = photoSlide.getBoundingClientRect() as DOMRect,
       placeholderDiv = document.querySelector('#photo-slide > #placeholder');
 
-
-    // if (this.activeMediaQuery === 'xs' || this.activeMediaQuery === 'sm') {
-      // this.selectedImageContainer.nativeElement.style.top = 0;
-    // }
-
     this.isVisible = true;
-    // this.selectedImageContainer.nativeElement.style.marginTop = 0;
-
 
     infoWrapper.classList.replace('animate-lines', 'remove-lines');
+
     // this.router.navigate(['/discover']);
 
     photoSlide.replaceChild(photoSlideItemSelected, placeholderDiv);
@@ -384,6 +366,5 @@ export class DiscoverComponent implements OnInit {
   resetSelected(): void {
     this.photoItems.map(val => val.selected = false);
   }
-
 
 }
