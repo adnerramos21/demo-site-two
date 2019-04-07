@@ -1,7 +1,16 @@
 <div class="wrapper" (scroll)="scrollHandler($event)">
 
-  <div class="bg-image" [ngClass.lt-md]="{'bg-image-lt-md': true}"></div>
+  <!-- <div class="bg-image" [ngClass.lt-md]="{'bg-image-lt-md': true}"></div> -->
 
+  <img class="bg-image" 
+  src="./../../assets/image/landing-background.jpg"
+  srcset="./../../assets/image/landing-background-mobile3.jpg 1000w,
+  ./../../assets/image/landing-background-tablet.jpg 2000w"
+  [ngStyle.xs]="{'min-width': '880px'}"
+  [ngStyle.sm]="{'min-width': '1120px'}"
+  [ngStyle.md]="{'min-width': '1250px'}">
+
+    
   <div class="content">
 
     <div fxLayout="row" class="top" fxLayoutAlign="start center">
