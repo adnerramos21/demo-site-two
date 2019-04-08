@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { TweenLite } from 'gsap/TweenMax';
+import { TweenLite, TimelineLite } from 'gsap/TweenMax';
+import { wrap } from 'module';
 
 
 @Component({
@@ -11,57 +12,35 @@ export class MainComponent implements OnInit {
 
   @ViewChild('verticalLine') verticalLine: ElementRef;
   @ViewChild('indicator') indicator: ElementRef;
+  @ViewChild('svgElement') svgElement: ElementRef;
   @ViewChild('first') first: ElementRef;
   @ViewChild('last') last: ElementRef;
+  @ViewChild('wrapper') wrapper: ElementRef;
   @ViewChild('actionButton') actionButton: ElementRef;
 
   @HostListener('scroll', ['$event'])
   scrollHandler(event) {
 
-    const scrollPosition = event.srcElement.scrollTop,
-      positionLimitForIndicator = 252,
-      positionLimitForVerticalLine = 630,
+    const verticalLineHeight = 360,
       indicator = this.indicator.nativeElement as Element,
       verticalLine = this.verticalLine.nativeElement as Element,
       first = this.first.nativeElement as Element,
       last = this.last.nativeElement as Element,
-      actionButton = this.actionButton.nativeElement as Element;
+      actionButton = this.actionButton.nativeElement as Element,
+      svgElement = this.svgElement.nativeElement as Element,
+      timeline = new TimelineLite();
 
-    let currentPositionFirstElem = 0,
-      currentPositionLastElem = 0;
-
-    if (scrollPosition <= positionLimitForIndicator) {
-      TweenLite.to(indicator, 0, {
-        strokeDashoffset: scrollPosition
-      });
-
-      verticalLine.setAttribute('style', 'height: 0');
-
-    } else if (scrollPosition > positionLimitForIndicator && scrollPosition <= positionLimitForVerticalLine) {
-      TweenLite.to(verticalLine, 0, {
-        height: scrollPosition - positionLimitForIndicator
-      });
-
-      first.setAttribute('style', 'transform: matrix(1, 0, 0, 1, -192, 0)');
-      last.setAttribute('style', 'transform: matrix(1, 0, 0, 1, 670, 0)');
-
-    } else if (scrollPosition > positionLimitForVerticalLine && scrollPosition <= 1000) {
-      currentPositionFirstElem = (scrollPosition - positionLimitForVerticalLine) - 192;
-      currentPositionLastElem = 670 - (scrollPosition - positionLimitForVerticalLine);
-
-      TweenLite.to(first, 0, {
-        transform: `matrix(1, 0, 0, 1, ${currentPositionFirstElem}, 0)`
-      });
-
-      TweenLite.to(last, 0, {
-        transform: `matrix(1, 0, 0, 1, ${currentPositionLastElem}, 0)`
-      });
-
-      actionButton.classList.remove('animate-lines');
-
-    } else if (scrollPosition > 1000) {
+    timeline.to(indicator, 1.25, {
+      strokeDashoffset: 252
+    }).to(verticalLine, 1.25, {
+      height: verticalLineHeight
+    }).to([first, last], 1, {
+      transform: `matrix(1, 0, 0, 1, 0, 0)`
+    }).call(() => {
       actionButton.classList.add('animate-lines');
-    }
+    }).to([svgElement, verticalLine], .78, {
+      // opacity: 0
+    });
 
   }
 
@@ -69,6 +48,26 @@ export class MainComponent implements OnInit {
   constructor() { console.clear(); }
 
   ngOnInit() {
+  }
+
+  onMobileDevice() {
+    const wrapper = this.wrapper.nativeElement as HTMLElement;
+    return wrapper.clientHeight + 'px';
+  }
+
+  onMobileDeviceLandscape() {
+    const wrapper = this.wrapper.nativeElement as HTMLElement;
+    return wrapper.clientHeight + 'px';
+  }
+
+  onTabletDevice() {
+    const wrapper = this.wrapper.nativeElement as HTMLElement;
+    return wrapper.clientHeight + 'px';
+  }
+
+  onDesktopDevice() {
+    const wrapper = this.wrapper.nativeElement as HTMLElement;
+    return wrapper.clientHeight + 'px';
   }
 
 }
