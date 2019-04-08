@@ -114,7 +114,7 @@
                       <div fxFlex="50%">{{artDirectionBy}}</div>
                     </div>
                     <div class="info-item" fxLayout="row" fxLayoutGap.xs="5px">
-                      <div fxFlex="50%">Shot on Location in</div>
+                      <div fxFlex="50%">Location in</div>
                       <div fxFlex="50%">{{shotLocationIn}}</div>
                     </div>
 
@@ -133,12 +133,13 @@
 
     </div>
 
-
     <div #photoSlide id="photo-slide" class="photo-slide" fxLayout="row" fxLayoutGap="20px"
       [@photoSlideAnimation]="isVisible ? 'discover' : 'specific'">
 
       <div *ngFor="let photoItem of photoItems; let ind = index" class="photo-slide-item"
-        [ngClass]="{'selected': photoItem.selected}" (click)="selectedPicture(ind, photoItem)" [tabindex]="ind" #slide>
+        [ngClass]="{'selected': photoItem.selected}"
+        (click)="isDisabled ? $event.stopPropagation() : selectedPicture(ind, photoItem); isDisabled ? false : null"
+        [tabindex]="ind" #slide>
         <img [src]="photoItem.source" [alt]="photoItem.name">
         <div class="label" [@showHide]="isVisible ? 'show' : 'hide'">
           <span>

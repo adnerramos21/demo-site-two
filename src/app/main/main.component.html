@@ -1,9 +1,5 @@
 <div class="wrapper" #wrapper (scroll)="scrollHandler($event)">
 
-  <!--   [src]="./../../assets/image/landing-background.jpg" 
-  srcset="./../../assets/image/landing-background-mobile3.jpg 1000w,
-  ./../../assets/image/landing-background-tablet.jpg 2000w"  -->
-
   <img class="bg-image" 
   ngClass.xs="bg-image-mobile"
   ngClass.sm="bg-image-mobile-landscape"
@@ -50,7 +46,7 @@
       <div fxFlex="50%" class="right-side">
         <div class="discover-text" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px"
           [routerLink]="[ '/discover' ]">
-          <div fxShow.gt.sm>
+          <div [fxHide.lt-md]="true">
             Discover
           </div>
           <div class="menu-icon-container">

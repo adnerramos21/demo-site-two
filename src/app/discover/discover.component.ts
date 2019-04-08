@@ -40,6 +40,8 @@ export class DiscoverComponent implements OnInit {
   artDirectionBy = '';
   shotLocationIn = '';
 
+  isDisabled = false;
+
   photoItems = [
     {
       name: 'picture1',
@@ -176,10 +178,11 @@ export class DiscoverComponent implements OnInit {
 
   }
 
-  selectedPicture(id: number, itemObj: object): void {
-    // disable click event after being clicked.
-
+  selectedPicture( id: number, itemObj: object): void {
+    this.isDisabled = true;  // disable click event after being clicked.
     this.selectedPictId = id;
+    this.isVisible = false;
+    this.photoSlideItems = [];
 
     const photoSlideItem = this.slide.map(val => val.nativeElement as HTMLElement),
       selectedImage = this.selectedImage.nativeElement as HTMLElement,
@@ -191,9 +194,6 @@ export class DiscoverComponent implements OnInit {
       selectedNode = photoSlideItem[this.selectedPictId];
 
     let translationSpaceXAxisObj;
-
-    this.isVisible = false;
-    this.photoSlideItems = [];
 
     // this.router.navigate(['/discover', id]);
 
@@ -320,6 +320,9 @@ export class DiscoverComponent implements OnInit {
   }
 
   backToProject(): void {
+    this.isVisible = true;
+    this.isDisabled = false;
+
     const photoSlideItemSelected = document.querySelector('#selected-image > .photo-slide-item.selected') as HTMLElement,
       infoWrapper = this.infoWrapper.nativeElement as HTMLElement,
       photoSlide = this.photoSlide.nativeElement as HTMLElement,
@@ -327,7 +330,6 @@ export class DiscoverComponent implements OnInit {
       newRect = photoSlide.getBoundingClientRect() as DOMRect,
       placeholderDiv = document.querySelector('#photo-slide > #placeholder');
 
-    this.isVisible = true;
 
     infoWrapper.classList.replace('animate-lines', 'remove-lines');
 
