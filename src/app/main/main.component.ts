@@ -39,7 +39,7 @@ export class MainComponent implements OnInit {
     }).call(() => {
       actionButton.classList.add('animate-lines');
     }).to([svgElement, verticalLine], .78, {
-      // opacity: 0
+      opacity: 0
     });
 
   }
